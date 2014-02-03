@@ -4,7 +4,7 @@
 The tracks to which we submitted it are
 
 - **SS4**: _High Performance Computing in Bioinformatics_
-- **SS8**: _Integration of data, methods and tools in biosciences
+- **SS8**: _Integration of data, methods and tools in biosciences_
 
 ### Reviewer 1
 
