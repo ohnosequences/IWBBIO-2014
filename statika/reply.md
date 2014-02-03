@@ -1,0 +1,1 @@
+We tried to make more clear the connection with the tracks _High Performance Computing in Bioinformatics_ and _Integration of data, methods and tools in biosciences_; Statika is something that we designed and use internally exactly for the integration of data, methods and tools into cloud computing infrastructures in the biosciences space.

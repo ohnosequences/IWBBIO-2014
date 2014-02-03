@@ -23,3 +23,7 @@ The tracks to which we submitted it are
 - Recommended for journal publication:  2: (poor)
 
 > This abstract presents a new open source tool (Statika) for aiding in the task of performing Next Generation Sequencing. Statika claims to be a tool for the definition and development of cloud infrastructures. This software may be an interesting approach for the parallelization of bioinformatic relates issues.
+
+----
+
+the modified version is in the file [statika.md](statika.md), and the text for the email is in [reply.md](reply.md).
