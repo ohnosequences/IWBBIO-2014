@@ -38,4 +38,11 @@ The tracks to which we submitted it are
 
 ----
 
-the modified version is in the file [bio4j.md](bio4j.md), and the text for the email is in [reply.md](reply.md).
+Summarizing, I think we should address (quoting from the reviews)
+
+1. what are the main advantages and disadvantages with other wellknown bioinformatics data platform?
+2. What about the graphical interface for the user?
+3. the abstract is extremely short, impact and novelty
+4. comparative study, time
+
+the modified version is in the file [bio4j.md](bio4j.md), and the text for the email is in [reply.md](reply.md). 
