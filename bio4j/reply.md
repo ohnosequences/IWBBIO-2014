@@ -1,0 +1,3 @@
+Thanks for the two careful, thoughtful reviews; we have modified our abstract, trying to address the reviewers comments. With respect to the user interface point, we just want to point out that Bio4j is more of a framework to be used by bioinformaticians and programmers in general for developing different applications with different user interfaces. All the other points are we hope covered by in the modified abstract. 
+
+About a paper submission, unfortunately we don't have the time right now for extending the abstract to a full paper.
