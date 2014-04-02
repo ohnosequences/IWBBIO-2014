@@ -15,280 +15,204 @@ institute: 'Era7 Bioinformatics'
 \begin{columns}[t] 
 % The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
 
-% Empty spacer column
 \begin{column}{\sepwid}\end{column}
 
-% The first column
 \begin{column}{\onecolwid}
 
 %----------------------------------------------------------------------------------------
 %   OBJECTIVES
 %----------------------------------------------------------------------------------------
 
-\begin{alertblock}{Objectives}
+\begin{alertblock}{Introduction}
 
-Lorem ipsum dolor sit amet, consectetur, nunc tellus pulvinar tortor, commodo eleifend risus arcu sed odio:
+Statika is a set of Scala libraries which % allows you to declare dependencies between components of any modular system and deploy them.
 
 \begin{itemize}
-\item Mollis dignissim, magna augue tincidunt dolor, interdum vestibulum urna
-\item Sed aliquet luctus lectus, eget aliquet leo ullamcorper consequat. Vivamus eros sem, iaculis ut euismod non, sollicitudin vel orci.
-\item Nascetur ridiculus mus.  
-\item Euismod non erat. Nam ultricies pellentesque nunc, ultrices volutpat nisl ultrices a.
+\item allows building \textit{well-structured} module systems
+\item where dependencies are \textit{correct by construction}
+\item and you know it \textit{before you run} anything
 \end{itemize}
 
 \end{alertblock}
 
-%----------------------------------------------------------------------------------------
-%   INTRODUCTION
-%----------------------------------------------------------------------------------------
+\begin{block}{Basic notions}
 
-\begin{block}{Introduction}
+\begin{center}\textbf{Bundle}\end{center}
 
-Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed commodo molestie porta. Sed ultrices scelerisque sapien ac commodo. Donec ut volutpat elit. Sed laoreet accumsan mattis. Integer sapien tellus, auctor ac blandit eget, sollicitudin vitae lorem. Praesent dictum tempor pulvinar. Suspendisse potenti. Sed tincidunt varius ipsum, et porta nulla suscipit et. Etiam congue bibendum felis, ac dictum augue cursus a. \textbf{Donec} magna eros, iaculis sit amet placerat quis, laoreet id est. In ut orci purus, interdum ornare nibh. Pellentesque pulvinar, nibh ac malesuada accumsan, urna nunc convallis tortor, ac vehicula nulla tellus eget nulla. Nullam lectus tortor, \textit{consequat tempor hendrerit} quis, vestibulum in diam. Maecenas sed diam augue.
-
-This statement requires citation \cite{Smith:2012qr}.
-
-\end{block}
-
-%------------------------------------------------
-
-\begin{figure}
-\includegraphics[width=0.8\linewidth]{resources/logos/ohnoseq-logo.png}
-\caption{Figure caption}
-\end{figure}
-
-
-% End of the first column
-\end{column}
-
-% Empty spacer column
-\begin{column}{\sepwid}\end{column}
-
-% Begin a column which is two columns wide (column 2)
-\begin{column}{\twocolwid}
-
-% Split up the two columns wide column
-\begin{columns}[t,totalwidth=\twocolwid]
-
-% The first column within column 2 (column 2.1)
-\begin{column}{\onecolwid}\vspace{-.6in}
-
-%----------------------------------------------------------------------------------------
-%   MATERIALS
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Materials}
-
-The following materials were required to complete the research:
+A \textbf{bundle} is a thin wrapper for a tool, library, resource or any other component of your system:
 
 \begin{itemize}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
-\item Eu facilisis est tempus quis
+\item It may have dependencies on other bundles.
+\item It may do something in runtime, e.g. install a tool, that it represents.
 \end{itemize}
 
-The materials were prepared according to the steps outlined below:
 
-\begin{enumerate}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
-\item Curabitur pellentesque dignissim
-\end{enumerate}
+\begin{center}\textbf{Distribution}\end{center}
 
-\end{block}
+A \textbf{distribution} is a bundle, which can deploy other bundles (it's members):
 
-%----------------------------------------------------------------------------------------
-
-% End of column 2.1
-\end{column}
-
-% The second column within column 2 (column 2.2)
-\begin{column}{\onecolwid}\vspace{-.6in}
-
-%----------------------------------------------------------------------------------------
-%   METHODS
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Methods}
-
-Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed laoreet accumsan mattis. Integer sapien tellus, auctor ac blandit eget, sollicitudin vitae lorem. Praesent dictum tempor pulvinar. Suspendisse potenti. Sed tincidunt varius ipsum, et porta nulla suscipit et. Etiam congue bibendum felis, ac dictum augue cursus a. \textbf{Donec} magna eros, iaculis sit amet placerat quis, laoreet id est. In ut orci purus, interdum ornare nibh. Pellentesque pulvinar, nibh ac malesuada accumsan, urna nunc convallis tortor, ac vehicula nulla tellus eget nulla. Nullam lectus tortor, \textit{consequat tempor hendrerit} quis, vestibulum in diam. Maecenas sed diam augue.
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-
-% End of column 2.2
-\end{column}
-
-% End of the split of column 2 - any content after this will now take up 2 columns width
-\end{columns}
-
-%----------------------------------------------------------------------------------------
-%   IMPORTANT RESULT
-%----------------------------------------------------------------------------------------
-
-\begin{alertblock}{Important Result}
-
-Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed commodo molestie porta. Sed ultrices scelerisque sapien ac commodo. Donec ut volutpat elit.
-
-\end{alertblock} 
-
-%----------------------------------------------------------------------------------------
-
-% Split up the two columns wide column again
-\begin{columns}[t,totalwidth=\twocolwid]
-
-% The first column within column 2 (column 2.1)
-\begin{column}{\onecolwid}
-
-%----------------------------------------------------------------------------------------
-%   MATHEMATICAL SECTION
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Mathematical Section}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-  
-\begin{equation}
-E = mc^{2}
-\label{eqn:Einstein}
-\end{equation}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-
-\begin{equation}
-\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
-\label{eq:refname}
-\end{equation}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-
-\begin{equation}
-\kappa =\frac{\xi}{E_{\mathrm{max}}} %\mathbb{ZNR}
-\end{equation}
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-
-\end{column} % End of column 2.1
-
-\begin{column}{\onecolwid} % The second column within column 2 (column 2.2)
-
-%----------------------------------------------------------------------------------------
-%   RESULTS
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Results}
-
-\begin{figure}
-\includegraphics[width=0.8\linewidth]{resources/logos/ohnoseq-logo.png}
-\caption{Figure caption}
-\end{figure}
-
-Nunc tempus venenatis facilisis. Curabitur suscipit consequat eros non porttitor. Sed a massa dolor, id ornare enim:
-
-\begin{table}
-\vspace{2ex}
-\begin{tabular}{l l l}
-\toprule
-\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
-\midrule
-Treatment 1 & 0.0003262 & 0.562 \\
-Treatment 2 & 0.0015681 & 0.910 \\
-Treatment 3 & 0.0009271 & 0.296 \\
-\bottomrule
-\end{tabular}
-\caption{Table caption}
-\end{table}
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-
-\end{column} % End of column 2.2
-
-\end{columns} % End of the split of column 2
-
-\end{column} % End of the second column
-
-\begin{column}{\sepwid}\end{column} % Empty spacer column
-
-\begin{column}{\onecolwid} % The third column
-
-%----------------------------------------------------------------------------------------
-%   CONCLUSION
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Conclusion}
-
-Nunc tempus venenatis facilisis. \textbf{Curabitur suscipit} consequat eros non porttitor. Sed a massa dolor, id ornare enim. Fusce quis massa dictum tortor \textbf{tincidunt mattis}. Donec quam est, lobortis quis pretium at, laoreet scelerisque lacus. Nam quis odio enim, in molestie libero. Vivamus cursus mi at \textit{nulla elementum sollicitudin}.
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-%   ADDITIONAL INFORMATION
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Additional Information}
-
-Maecenas ultricies feugiat velit non mattis. Fusce tempus arcu id ligula varius dictum. 
 \begin{itemize}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
+\item It represents some environment, where you're going to use your bundles.
+\item Being a member of a distribution means to work fine with this environment.
+\item Distribution takes care of installing member dependencies first, and then the member itself.
 \end{itemize}
 
 \end{block}
 
-%----------------------------------------------------------------------------------------
-%   REFERENCES
-%----------------------------------------------------------------------------------------
-
-\begin{block}{References}
-
-\nocite{*} % Insert publications even if they are not cited in the poster
-\small{\bibliographystyle{unsrt}
-\bibliography{sample}\vspace{0.75in}}
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-%   ACKNOWLEDGEMENTS
-%----------------------------------------------------------------------------------------
-
-\setbeamercolor{block title}{fg=red,bg=white} % Change the block title color
-
-\begin{block}{Acknowledgements}
-
-\small{\rmfamily{Nam mollis tristique neque eu luctus. Suspendisse rutrum congue nisi sed convallis. Aenean id neque dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.}} \\
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-%   CONTACT INFORMATION
-%----------------------------------------------------------------------------------------
-
-\setbeamercolor{block alerted title}{fg=black,bg=norange} % Change the alert block title colors
-\setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
-
-\begin{alertblock}{Contact Information}
-
-\begin{itemize}
-\item Web: \href{http://www.university.edu/smithlab}{http://www.university.edu/smithlab}
-\item Email: \href{mailto:john@smith.com}{john@smith.com}
-\item Phone: +1 (000) 111 1111
-\end{itemize}
-
-\end{alertblock}
+\begin{alertblock}{Availability}
 
 \begin{center}
-\begin{tabular}{ccc}
-\includegraphics[width=0.4\linewidth]{resources/logos/era7-logo.png} & \hfill & \includegraphics[width=0.4\linewidth]{resources/logos/era7-logo.png}
+\begin{tabular}{m{0.5\linewidth} m{0.48\linewidth}}
+\includegraphics[width=\linewidth]{resources/logos/agplv3-logo.png} \newline Statika is free and open-source under the \mbox{AGPLv3} license & \includegraphics[width=\linewidth]{resources/images/qrcode.png} 
+\end{tabular}
+
+See \href{http://ohnosequences.com/statika}{http://ohnosequences.com/statika}
+\end{center}
+
+\end{alertblock}
+
+
+
+\end{column}
+
+
+\begin{column}{\sepwid}\end{column}
+\begin{column}{\onecolwid}
+
+
+\begin{block}{Abstract module system}
+
+\begin{itemize}
+\item Bundles are represented as Scala types.
+\item Their dependencies on each other are validated by compiler --- i.e. \textbf{statically}.
+\item Statika linearizing the types graph to get them in the right order.
+\end{itemize}
+
+\end{block}
+
+\begin{center}
+\includegraphics[width=\linewidth]{resources/images/StatikaLinearization.png}
+\end{center}
+
+\vspace{2cm}
+
+\begin{block}{Managing artifacts}
+
+\textbf{sbt-statika} --- an sbt (simple build tool) plugin, which takes care of
+
+\begin{itemize}
+\item packing bundles into versioned artifacts (jars)
+\item reusing sbt infrastructure to track dependencies on the artifact level
+\item standardizing common settings, versioning and release process
+\end{itemize}
+
+\end{block}
+
+\vspace{1.5cm}
+
+\begin{block}{Deployment}
+
+Amazon Web Services + \textbf{aws-statika} library
+
+\begin{itemize}
+\item Bundles can be \textit{applied}, i.e. deployed to an EC2 instance
+\item Statika \textit{distributions} abstract over the cloud infrastructure specifics
+\end{itemize}
+
+\end{block}
+
+
+\end{column}
+
+
+
+
+\begin{column}{\sepwid}\end{column}
+\begin{column}{\onecolwid}
+
+
+\begin{block}{Applications in bioinformatics}
+
+\vspace{1cm}
+\begin{center}
+\begin{tabular}[c]{m{0.3\linewidth}cc}
+\includegraphics[width=\linewidth]{resources/logos/bio4j-logo.png} & \hspace{0.5cm} & \Large{\textbf{Graph Database}}
 \end{tabular}
 \end{center}
+\vspace{1cm}
+
+Bio4j is a bioinformatics graph database which integrates data from a lot of different sources:
+
+\includegraphics[width=\linewidth]{resources/images/Bio4jModules.png}
+
+% \vspace{1.5cm}
+
+Every module has some inner structure:
+
+\begin{itemize}
+\item raw data from a data source
+\item data importing process to the graph database
+\item nodes and relationships type definitions
+\item some abstract interface representing what you can do with this data
+\end{itemize}
+
+\includegraphics[width=\linewidth]{resources/images/Bio4jModulesExampleIncremental.png}
+
+So Statika introduces to Bio4j a flexible module system with
+
+\begin{itemize}
+\item simple data-import process
+\item automized dependencies management
+\item easy and robust deployment to the Amazon Web Services
+\end{itemize}
+
+\end{block}
+
+
+\end{column}
+
+\begin{column}{\sepwid}\end{column}
+\begin{column}{\onecolwid}
+
+\begin{block}{Applications in bioinformatics}
+
+\vspace{1cm}
+\begin{center}
+\includegraphics[width=0.6\linewidth]{resources/logos/nispero-logo.png}\\
+\Large{\textbf{Cloud-computing Distributed System}}
+\end{center}
+\vspace{1cm}
+
+
+\begin{center}
+\includegraphics[width=0.9\linewidth]{resources/images/NisperoBundles.png}\\
+\end{center}
+
+\end{block}
+
+
+\vspace{8cm}
+
+\begin{center}
+\textbf{Statika is developed by}\\
+\vspace{2cm}
+\includegraphics[width=0.9\linewidth]{resources/logos/era7-logo.png}\\
+\vspace{1cm}
+\includegraphics[width=0.9\linewidth]{resources/logos/ohnoseq-logo.png}\\
+\vspace{1cm}
+\end{center}
+
+\begin{alertblock}{INTERCROSSING}
+
+This project is funded in part by the ITN FP7 project INTERCROSSING (Grant 289974)
+
+\begin{center}
+\begin{tabular}{m{0.4\linewidth} m{0.4\linewidth}}
+\includegraphics[width=\linewidth]{resources/logos/intercrossing-logo.png} & \includegraphics[width=\linewidth]{resources/logos/marie-curie-logo.png}
+\end{tabular}
+\end{center}
+
+\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 
