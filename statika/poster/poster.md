@@ -202,7 +202,7 @@ There is also a Statika distribution for bioinformatics tools, such as Velvet, C
 \end{block}
 
 
-\begin{block}{Acknowledgments}
+\begin{alertblock}{Acknowledgments}
 
 Statika is developed by the R\&D team of the Era7 Bioinformatics company\\
 
@@ -214,8 +214,6 @@ Statika is developed by the R\&D team of the Era7 Bioinformatics company\\
 % \vspace{1cm}
 \end{center}
 
-% \begin{alertblock}{INTERCROSSING}
-
 This project is funded in part by the ITN FP7 project INTERCROSSING (Grant 289974)\\
 
 \begin{center}
@@ -224,9 +222,7 @@ This project is funded in part by the ITN FP7 project INTERCROSSING (Grant 28997
 \end{tabular}
 \end{center}
 
-% \end{alertblock}
-
-\end{block}
+\end{alertblock}
 
 \end{column}
 
