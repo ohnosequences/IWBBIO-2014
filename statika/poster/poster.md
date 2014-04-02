@@ -35,6 +35,8 @@ Statika is a set of Scala libraries which % allows you to declare dependencies b
 
 \end{alertblock}
 
+\vspace{1cm}
+
 \begin{block}{Basic notions}
 
 \begin{center}\textbf{Bundle}\end{center}
@@ -58,6 +60,8 @@ A \textbf{distribution} is a bundle, which can deploy other bundles (it's member
 \end{itemize}
 
 \end{block}
+
+\vspace{1cm}
 
 \begin{alertblock}{Availability}
 
@@ -85,7 +89,7 @@ See \href{http://ohnosequences.com/statika}{http://ohnosequences.com/statika}
 \begin{itemize}
 \item Bundles are represented as Scala types.
 \item Their dependencies on each other are validated by compiler --- i.e. \textbf{statically}.
-\item Statika linearizing the types graph to get them in the right order.
+\item Statika linearizes the types graph to get them in the right order.
 \end{itemize}
 
 \end{block}
@@ -96,7 +100,7 @@ See \href{http://ohnosequences.com/statika}{http://ohnosequences.com/statika}
 
 \vspace{2cm}
 
-\begin{block}{Managing artifacts}
+\begin{block}{Artifacts management}
 
 \textbf{sbt-statika} --- an sbt (simple build tool) plugin, which takes care of
 
@@ -163,7 +167,7 @@ So Statika introduces to Bio4j a flexible module system with
 \begin{itemize}
 \item simple data-import process
 \item automized dependencies management
-\item easy and robust deployment to the Amazon Web Services
+\item easy and robust deployment to AWS
 \end{itemize}
 
 \end{block}
@@ -178,33 +182,41 @@ So Statika introduces to Bio4j a flexible module system with
 
 \vspace{1cm}
 \begin{center}
-\includegraphics[width=0.6\linewidth]{resources/logos/nispero-logo.png}\\
-\Large{\textbf{Cloud-computing Distributed System}}
+\includegraphics[width=0.5\linewidth]{resources/logos/nispero-logo.png}\\
+\large{\textbf{Cloud-computing System}}
 \end{center}
-\vspace{1cm}
+% \vspace{1cm}
 
+Nispero is a toolset for declaring scalable cloud-based systems for bioinformatics computations. It has pretty complex inner commponents structure, which is managed with the help of Statika:
 
 \begin{center}
 \includegraphics[width=0.9\linewidth]{resources/images/NisperoBundles.png}\\
+\vspace{1cm}
+\rule{0.9\linewidth}{.1pt}
+\vspace{1cm}
 \end{center}
+
+
+There is also a Statika distribution for bioinformatics tools, such as Velvet, Cufflinks, Tophat and Bowtie(2). See github.com/statika/bioinfo-dist/.
 
 \end{block}
 
 
-\vspace{8cm}
+\begin{block}{Acknowledgments}
 
+Statika is developed by the R\&D team of the Era7 Bioinformatics company\\
+
+\vspace{1cm}
 \begin{center}
-\textbf{Statika is developed by}\\
-\vspace{2cm}
-\includegraphics[width=0.9\linewidth]{resources/logos/era7-logo.png}\\
+\includegraphics[width=0.7\linewidth]{resources/logos/era7-logo.png}\\
 \vspace{1cm}
-\includegraphics[width=0.9\linewidth]{resources/logos/ohnoseq-logo.png}\\
-\vspace{1cm}
+\includegraphics[width=0.7\linewidth]{resources/logos/ohnoseq-logo.png}\\
+% \vspace{1cm}
 \end{center}
 
-\begin{alertblock}{INTERCROSSING}
+% \begin{alertblock}{INTERCROSSING}
 
-This project is funded in part by the ITN FP7 project INTERCROSSING (Grant 289974)
+This project is funded in part by the ITN FP7 project INTERCROSSING (Grant 289974)\\
 
 \begin{center}
 \begin{tabular}{m{0.4\linewidth} m{0.4\linewidth}}
@@ -212,10 +224,10 @@ This project is funded in part by the ITN FP7 project INTERCROSSING (Grant 28997
 \end{tabular}
 \end{center}
 
-\end{alertblock}
+% \end{alertblock}
 
-%----------------------------------------------------------------------------------------
+\end{block}
 
-\end{column} % End of the third column
+\end{column}
 
 \end{columns}
