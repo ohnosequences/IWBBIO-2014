@@ -77,9 +77,13 @@ linewidth=1pt % Width of the border lines around content boxes
 {\includegraphics[height=3em]{nispero.png}} % First university/lab logo on the left
 %{}
 {\bf{Nispero: a cloud-computing based Scala tool specially suited for bioinformatics data
-processing}}
+processing\vspace{0.333em}}
+}
  % Poster title
-{\textsc{Evdokim~Kovach, Alexey~Alekhin, Marina~Manrique, Pablo~Pareja-Tobes, Eduardo~Pareja, Raquel~Tobes and Eduardo~Pareja-Tobes}} % Author names and institution
+{\large\textsc{Evdokim~Kovach, Alexey~Alekhin, Marina~Manrique, Pablo~Pareja-Tobes, Eduardo~Pareja, Raquel~Tobes and Eduardo~Pareja-Tobes \vspace{0.333em}}
+
+{\itshape\small Oh no sequences! Research Group. Era7 bioinformatics}
+} % Author names and institution
 {\includegraphics[height=3em]{era7.png}} % Second university/lab logo on the right
 
 
@@ -109,14 +113,14 @@ using cloud computing, in particular a combination of services from AWS
 \headerbox{Why AWS?}{name=whyaws,column=1,row=0}{
 \begin{itemize}\compresslist
 	\item Hire as much resources as you want
-	\item pay-as-you-go
+	\item pay-as-you-go.
 \end{itemize}
 }
 
 \headerbox{Why Scala?}{name=whyscala,column=2,row=0}{
 \begin{itemize}\compresslist
 	\item Type safety
-	\item Java compatibility
+	\item Java compatibility.
 \end{itemize}
 }
 
@@ -235,15 +239,15 @@ Instructions represent computations that will be launched by Nispero. They can b
 
 \headerbox{Components}{name=components,column=1,below=architecture}{ % This block's bottom aligns with the bottom of the conclusion block
 \begin{itemize}\compresslist
-  \item a console instance that tracks at any moment the status of the whole 
+  \item A console instance that tracks at any moment the status of the whole 
 system giving the user the opportunity to check at any point the 
 current status of the computations, workers, etc
-  \item a manager instance that is in charge of deploying and undeploying 
+  \item A manager instance that is in charge of deploying and undeploying 
 the group of workers
-  \item a set of workers that performs the computations/tasks in a parallel, 
+  \item A set of workers that performs the computations/tasks in a parallel, 
 independent way 
   \item SQS queues for input, output and error messages
-  \item S3 objects for input and output files 
+  \item S3 objects for input and output files. 
 \end{itemize}
 
 
