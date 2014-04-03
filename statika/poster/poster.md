@@ -9,7 +9,7 @@ author:
     - Raquel Tobes,
     - Eduardo Pareja-Tobes
 date: 07.04.2014
-institute: 'Era7 Bioinformatics'
+institute: 'Oh no sequences! Research Group. Era7 bioinformatics'
 ---
 
 \begin{columns}[t] 
@@ -67,7 +67,7 @@ A \textbf{distribution} is a bundle, which can deploy other bundles (it's member
 
 \begin{center}
 \begin{tabular}{m{0.5\linewidth} m{0.48\linewidth}}
-\includegraphics[width=\linewidth]{resources/logos/agplv3-logo.png} \newline Statika is free and open-source under the \mbox{AGPLv3} license & \includegraphics[width=\linewidth]{resources/images/qrcode.png} 
+\includegraphics[width=\linewidth]{resources/logos/agplv3-logo.pdf} \newline Statika is free and open-source under the \mbox{AGPLv3} license & \includegraphics[width=\linewidth]{resources/images/qrcode.png}
 \end{tabular}
 
 See \href{http://ohnosequences.com/statika}{http://ohnosequences.com/statika}
@@ -143,7 +143,7 @@ Amazon Web Services + \textbf{aws-statika} library
 \includegraphics[width=\linewidth]{resources/logos/bio4j-logo.png} & \hspace{0.5cm} & \Large{\textbf{Graph Database}}
 \end{tabular}
 \end{center}
-\vspace{1cm}
+% \vspace{1cm}
 
 Bio4j is a bioinformatics graph database which integrates data from a lot of different sources:
 
