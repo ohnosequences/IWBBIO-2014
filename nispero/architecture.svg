@@ -1001,7 +1001,7 @@
       </g>
     </g>
     <g text-rendering="optimizeQuality" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-171,-93)" stroke-linecap="butt">
-      <text x="188.8203" xml:space="preserve" y="288.7451" clip-path="url(#clipPath2)" stroke="none">table with instances stats</text>
+      <text x="188.8203" xml:space="preserve" y="288.7451" clip-path="url(#clipPath2)" stroke="none">table with instance stats</text>
       <path fill="none" d="M456.7069 169.7306 L530.3317 169.7306" clip-path="url(#clipPath2)"/>
       <path d="M538.3317 169.7306 L526.3317 164.7306 L529.3317 169.7306 L526.3317 174.7306 Z" clip-path="url(#clipPath2)" stroke="none"/>
       <path fill="none" d="M564.7313 198.0913 L564.7313 238.0547" clip-path="url(#clipPath2)"/>
