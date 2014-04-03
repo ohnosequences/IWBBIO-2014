@@ -42,7 +42,19 @@ around **protein information**
 
 ----
 
-### It's open!
+<!-- 
++----------------------------------------------------------------+--------------------------------------------------------------------------------------+
+|                                                                |                                                                                      |
++================================================================+======================================================================================+
+|                                                                | - Code is under the [**AGPLv3**](https://www.gnu.org/licenses/agpl-3.0.html) license |
+| <img width="300" src="resources/logos/open-science-logo.jpg"/> | - Only [**Open Data**](http://okfn.org/opendata/) is integrated                      |
+|                                                                | - Implementation & release process is                                                |
+|                                                                | [**100% public**](https://github.com/bio4j/bio4j) and totally **transparent**        |
++----------------------------------------------------------------+--------------------------------------------------------------------------------------+
+-->
+
+[<img width="300" src="resources/logos/open-science-logo.jpg"/>](https://www.flickr.com/photos/gemmerich/6365692623/in/faves-67338640@N04/)
+
 
 - Code is under the [**AGPLv3**](https://www.gnu.org/licenses/agpl-3.0.html) license
 - Only [**Open Data**](http://okfn.org/opendata/) is integrated
@@ -69,7 +81,6 @@ but as the **amount** and **diversity** of data grows,
 <img width="800" src="resources/images/go-tables.jpg"/>
 
 _Doesn't look very compelling right?_
-
  
 ----
 
@@ -206,13 +217,15 @@ Bio4j database has a **well-defined** domain model and all nodes and relationshi
 
 ### Bio4j and the cloud
 
-#### Data as a service
+<img width="200" style="background:trasparent; border:none; box-shadow:none;" src="resources/logos/aws-logo.png"/>
 
-* Interoperability and data distribution
+#### Data as a service 
+
+* Interoperability 
+* Data distribution
 * Backup and storage
 * Scalability
 * Cost-effectiveness
-
 
 
 # Under the hood
@@ -245,15 +258,12 @@ Bio4j database has a **well-defined** domain model and all nodes and relationshi
 
 ### How we develop Bio4j?
 
-- **[Statika](http://ohnosequences/statika)** cloud, data + code, modules (see [next talk](https://fosdem.org/2014/schedule/event/graphdevroom_bio4j_1/))
-- **[sbt](https://github.com/sbt/sbt)** build Java + Scala, automated Bio4j-specific test & release
-- **[git + github](https://github.com/bio4j)** versioning, docs, collaboration, coordination
-
-### dev and release process
-
-* coordinate **data** and **code**
-* **[Semantic Versioning](http://semver.org/spec/v2.0.0.html)**
-* **Cloud** integration, distribution, deployment, ...
+- Java + Scala source code
+- **[Statika](http://ohnosequences/statika)**-based module system
+- **[SBT](https://github.com/sbt/sbt)** for building sources  
+  and automated tests & release
+- **[Git + Github](https://github.com/bio4j)**: versioning, docs,  
+  collaboration, coordination
 
 ----
 
