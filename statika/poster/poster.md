@@ -41,7 +41,7 @@ A \textbf{bundle} is a thin wrapper for a tool, library, resource or any other c
 
 \begin{itemize}
 \item it may have dependencies on other bundles
-\item it may do something in runtime, e.g. install a tool that it represents
+\item it may do something in runtime, e.g. install a program or download some data
 \end{itemize}
 
 
