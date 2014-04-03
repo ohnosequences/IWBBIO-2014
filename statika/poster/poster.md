@@ -9,26 +9,22 @@ author:
     - Raquel Tobes,
     - Eduardo Pareja-Tobes
 date: 07.04.2014
-institute: 'Oh no sequences! Research Group. Era7 bioinformatics'
+institute: 'Oh no sequences! Research Group. Era7 bioinformatics, Granada, Spain.'
 ---
 
 \begin{columns}[t] 
-% The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
 
 \begin{column}{\sepwid}\end{column}
 
 \begin{column}{\onecolwid}
 
-%----------------------------------------------------------------------------------------
-%   OBJECTIVES
-%----------------------------------------------------------------------------------------
 
 \begin{alertblock}{Introduction}
 
-Statika is a set of Scala libraries which % allows you to declare dependencies between components of any modular system and deploy them.
+Statika is a set of Scala libraries
 
 \begin{itemize}
-\item allows building \textit{well-structured} module systems
+\item which allows building \textit{well-structured} module systems
 \item where dependencies are \textit{correct by construction}
 \item and you know it \textit{before you run} anything
 \end{itemize}
@@ -44,19 +40,19 @@ Statika is a set of Scala libraries which % allows you to declare dependencies b
 A \textbf{bundle} is a thin wrapper for a tool, library, resource or any other component of your system:
 
 \begin{itemize}
-\item It may have dependencies on other bundles.
-\item It may do something in runtime, e.g. install a tool, that it represents.
+\item it may have dependencies on other bundles
+\item it may do something in runtime, e.g. install a tool that it represents
 \end{itemize}
 
 
 \begin{center}\textbf{Distribution}\end{center}
 
-A \textbf{distribution} is a bundle, which can deploy other bundles (it's members):
+A \textbf{distribution} is a bundle, which can deploy other bundles (its members):
 
 \begin{itemize}
-\item It represents some environment, where you're going to use your bundles.
-\item Being a member of a distribution means to work fine with this environment.
-\item Distribution takes care of installing member dependencies first, and then the member itself.
+\item it represents some environment, where you're going to use your bundles
+\item being a member of a distribution means to work fine with this environment
+\item distribution takes care of installing member dependencies first, and then the member itself
 \end{itemize}
 
 \end{block}
@@ -88,7 +84,7 @@ See \href{http://ohnosequences.com/statika}{http://ohnosequences.com/statika}
 
 \begin{itemize}
 \item Bundles are represented as Scala types.
-\item Their dependencies on each other are validated by compiler --- i.e. \textbf{statically}.
+\item Their dependencies on each other are validated by the compiler --- i.e. \textbf{statically}.
 \item Statika linearizes the types graph to get them in the right order.
 \end{itemize}
 
@@ -162,8 +158,7 @@ Every module has some inner structure:
 
 \includegraphics[width=\linewidth]{resources/images/Bio4jModulesExampleIncremental.png}
 
-So Statika introduces to Bio4j a flexible module system with
-
+So with Statika Bio4j achieves 
 \begin{itemize}
 \item simple data-import process
 \item automized dependencies management
