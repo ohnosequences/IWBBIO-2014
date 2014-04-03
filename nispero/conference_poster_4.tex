@@ -108,14 +108,14 @@ using cloud computing, in particular a combination of services from AWS
 
 \headerbox{Why AWS?}{name=whyaws,column=1,row=0}{
 \begin{itemize}\compresslist
-	\item Hire as mush resources as you want
+	\item Hire as much resources as you want
 	\item pay-as-you-go
 \end{itemize}
 }
 
 \headerbox{Why Scala?}{name=whyscala,column=2,row=0}{
 \begin{itemize}\compresslist
-	\item Type safity
+	\item Type safety
 	\item Java compatibility
 \end{itemize}
 }
@@ -173,7 +173,7 @@ This project is funded in part by the ITN FP7 project INTERCROSSING (Grant 28997
 
 
 
-Nispero is an open-source project released under AGPLv3 license. 
+Nispero is an open-source project released under the AGPLv3 license. 
 \\
 The source code is available at 
 \\
@@ -187,11 +187,11 @@ https://github.com/ohnosequences/nispero
 }
 
 
-\headerbox{Feautures}{name=features,column=0,below=introduction}{ % This block's bottom aligns with the bottom of the conclusion block
+\headerbox{Features}{name=features,column=0,below=introduction}{ % This block's bottom aligns with the bottom of the conclusion block
 \begin{itemize}\compresslist
 \item For all configuration of Nispero we are using Scala, it makes possible to check it statically before any Amazon instance
 will be launched
-\item Nispero especially designed for bioinformatics data processing, for example it has build-in tools for working with FASTQ files. 
+\item Nispero specially designed for bioinformatics data processing, for example it has built-in tools for working with FASTQ files. 
  \end{itemize}
 
 %  \begin{itemize}\compresslist
@@ -212,13 +212,13 @@ Nispero is used as a core component of metapasta --- microbial community profili
 }
 
 \headerbox{Instructions}{name=instructions,column=0,below=applications}{ % This block's bottom aligns with the bottom of the conclusion block
-Instructions are represent computations that will launched by Nispero. They can be: 
+Instructions represent computations that will be launched by Nispero. They can be: 
  \begin{itemize}\compresslist
   \item Scala/Java/other JVM code that implements the special interface
-  \item Any BASH script that following simple conventions. It makes possible to use any programming language with Nispero.
+  \item Any BASH script following simple conventions. It makes possible to use any programming language with Nispero.
   \end{itemize}
 
-  The input data for instructions called tasks.
+  The input data for instructions is called a task.
 }
 
 
@@ -265,8 +265,8 @@ $$ Reads \otimes Reads \xrightarrow{merge} Reads \xrightarrow{BLAST} AssignTable
 We are using idempotent commutative monoids to describe distributed	systems in Nispero. They are:
 
 \begin{itemize}\compresslist
-  \item They powerful enough to build complex system
-  \item It is easy to work with them abstractly (graphical workflow editor that produces distributed systems).
+  \item powerful enough to build complex system
+  \item easy to work with them abstractly (graphical workflow editor that produces distributed systems).
 \end{itemize}
 
 }
