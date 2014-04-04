@@ -166,7 +166,7 @@ Some numbers:
 
 Bio4j importing process is **modular** and **customizable** allowing you to import just the data you are interested in
 
-<img width="85%" src="resources/images/bio4j-modules.png"/>
+[<img width="85%" src="resources/images/bio4j-modules.png"/>](resources/images/bio4j-modules.png)
 
 <!-- Just keep in mind that you must be **coherent**
 _e.g. you cannot import protein interactions if you didn't import any protein yet!_ -->
@@ -196,7 +196,7 @@ _same_ **domain model** in the client's code
 
 Bio4j database has a **well-defined** domain model and all nodes and relationships comply with this abstract model
 
-<img width="100%" src="resources/images/domain-model.jpg"/>
+[<img width="100%" src="resources/images/domain-model.png"/>](resources/images/domain-model.png)
 
 ----
 
