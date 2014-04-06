@@ -84,7 +84,7 @@
     %\includegraphics[width=1cm,keepaspectratio]{intercrossing.png}%
     %\hfill%
     
-    \includegraphics[width=2cm,keepaspectratio]{era7.png}%
+    \includegraphics[width=2.5cm,keepaspectratio]{era7.png}%
     \vspace{1cm}
     
   }%
@@ -134,17 +134,42 @@ Oh no sequences! Research Group, Era7 bioinformatics
 %----------------------------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{What is Metapasta?}
-put something about 16S
+\frametitle{MG7}
 
-thing that produce taxonomical assigment to taxonomy tree tree:
+MG7 is cloud tool for community profiling based on the analysis of 16S metagenomics data.
+More specifically it performs assignments to the taxonomy tree based on mapping reads from samples
+to a 16S database.
 
-\begin{itemize}
-  \item Best BLAST/LAST hit
-  \item a Lowest Common ancestor.
-\end{itemize}
+\vspace{1em}
+
+Metapasta is a version of MG7 written in Scala programing language.
 
 \end{frame}
+
+\begin{frame}
+\frametitle{Input}
+\begin{itemize}
+  \item Metagenomic samples with reads in FASTQ format
+  \item 16S database (by default Metapasta uses NCBI 16S with some filtering)
+  \item Taxonomy database (we are NCBI taxonomy database that integrated to Bio4j).
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Results}
+As results metapasta produce
+\begin{itemize}
+  \item For every tax id and sample: 
+  \begin{itemize}
+  	\item number of reads from the sample that were assigned to this tax id
+  	\item number of reads from the sample that were assigned to all successors of this tax id
+  \end{itemize} 
+  \item Aggregated data by samples. 
+\end{itemize}
+\end{frame}
+
+
 
 
 \begin{frame}
@@ -154,10 +179,8 @@ thing that produce taxonomical assigment to taxonomy tree tree:
 
 \begin{frame}
 \frametitle{Results. Trees}
-\includegraphics[width=\textwidth]{tree.pdf}
+\includegraphics[width=0.9\textwidth]{tree.pdf}
 \end{frame}
-
-
 
 
 \begin{frame}
@@ -166,27 +189,26 @@ thing that produce taxonomical assigment to taxonomy tree tree:
 
 \begin{itemize}
   \item FLASh merging paired-end reads into big reads
-  \item BLAST/LAST mapping to 16S database
-  \item Assignmnet to the taxonomy tree using Bio4j
+  \item Mapping reads against the 16S database (with BLAST or LAST)
+  \item Assignment to the taxonomy tree using Bio4j.
 \end{itemize}
-
 \end{frame}
 
 \begin{frame}
 \frametitle{Mapping problem}
-Mapping NGS reads to 16S takes requires a lot of computational resources.
+Mapping NGS reads against the 16S database requires really a lot of computational resources.
 \\
-For example even on fast computers with SSD and size of RAM mapping of one read with BLAST takes more than 0.2 seconds.
+For example even on fast computers with SSD and big size of RAM mapping of one read with BLAST takes more than 0.2 seconds.
 
 $$ 1 000 000 \times 0.2 s \approx 56 h $$
 
-The mapping time can be improved by using more efficient mapping tool (by default Metapasta uses LAST that in 100 times faster).
+The mapping time can be improved by using more efficient mapping tool (by default Metapasta uses LAST that in 100 times faster than BLAST in this case).
 \end{frame}
 
 \begin{frame}
 \frametitle{Cloud solution}
 
-Metapasta uses Amazon Web Services for computations (EC2 instances):
+Metapasta uses AWS (Amazon Web Services) for performing all computations (EC2 instances):
 
 \includegraphics[width=\textwidth]{pipeline_dist.pdf}
 \end{frame}
@@ -199,7 +221,7 @@ Besides computations Metapasta uses AWS for all data management:
 \begin{itemize}
   \item input data -- samples are stored in S3
   \item output assignment tables and trees in PDF
-  \item Metapasta can upload all reads (with assignment) to DynamoDB table 
+  \item Metapasta can upload all reads (with assignment) to DynamoDB table.
 \end{itemize}
 \end{frame}
 
@@ -209,39 +231,46 @@ Besides computations Metapasta uses AWS for all data management:
 \frametitle{Nispero}
 \includegraphics[width=0.7\textwidth]{nispero.png}
 \begin{itemize}
-  \item Scala library for building distributed systems
-  \item Dedicated to provide maximal level of scalability and availability
+  \item Scala library for building distributed using AWS
+  \item Easy to use (only AWS account is needed)
+  \item Designed to provide maximal level of scalability and availability 
+  (in case of Metapasta it means that it can process {\bf with a good performance} as many samples as needed, and never will lose any of reads).
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Nispero}
+% \begin{frame}
+% \frametitle{Nispero}
 
-\begin{itemize}
-  \item Amazon auto scaling groups
-  \item SQS queues
-\end{itemize}
-\end{frame}
+% \begin{itemize}
+%   \item Amazon auto scaling groups
+%   \item SQS queues
+% \end{itemize}
+% \end{frame}
 
 \begin{frame}
 \frametitle{Monoids}
 $$ Reads \otimes Reads \xrightarrow{merge} Reads \xrightarrow{BLAST} AssignTable \otimes Reads $$
 
+\begin{itemize}
+  \item They are powerful enough to build complex system
+  \item It is easy to work with them abstractly (for example to create graphical workflow editor that produces distributed systems).
+\end{itemize}
+
 \end{frame}
 
+%lastvizmeta010-snapshot
+% \begin{frame}
+% \frametitle{Bio4j}
 
-\begin{frame}
-\frametitle{Bio4j}
-
-\begin{columns}[T]
-		\begin{column}{.5\textwidth}
-			\includegraphics[width=\textwidth]{bio4j.png}
-		\end{column}
-		\begin{column}{.5\textwidth}
-			NCBI taxonomy
-		\end{column}
-	\end{columns}
-\end{frame}
+% \begin{columns}[T]
+% 		\begin{column}{.5\textwidth}
+% 			\includegraphics[width=\textwidth]{bio4j.png}
+% 		\end{column}
+% 		\begin{column}{.5\textwidth}
+% 			NCBI taxonomy
+% 		\end{column}
+% 	\end{columns}
+% \end{frame}
 
 
 
