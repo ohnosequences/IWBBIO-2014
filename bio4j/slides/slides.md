@@ -53,13 +53,15 @@ around **protein information**
 +----------------------------------------------------------------+--------------------------------------------------------------------------------------+
 -->
 
-[<img width="300" src="resources/logos/open-science-logo.jpg"/>](https://www.flickr.com/photos/gemmerich/6365692623/in/faves-67338640@N04/)
+### It's open!
+
+[<img width="50%" src="resources/logos/open-science-logo.jpg"/>](https://www.flickr.com/photos/gemmerich/6365692623/in/faves-67338640@N04/)
 
 
 - Code is under the [**AGPLv3**](https://www.gnu.org/licenses/agpl-3.0.html) license
 - Only [**Open Data**](http://okfn.org/opendata/) is integrated
 - Implementation & release process is  
-  [**100% public**](https://github.com/bio4j/bio4j) and totally **transparent**
+  [**100% public**](https://github.com/bio4j/bio4j) and totally transparent
 
 ----
 
@@ -67,7 +69,7 @@ around **protein information**
 
 * Highly **interconnected overlapping** knowledge 
 * spread over **different data sources**
-* mantained in the **Relational Databases**  
+* maintained in the **Relational Databases**  
   or sometimes even just as plain **CSV files**
 
 \ 
@@ -119,9 +121,33 @@ doesn't go both ways, which implies
 
 ----
 
-### Why Bio4j?
+### Why in the cloud?
 
-Bio Data **+** Graph Databases **+** The Cloud
+<img width="250" style="background:trasparent; border:none; box-shadow:none;" src="resources/logos/aws-logo.png"/>
+
+#### Data as a service 
+
+* Services interoperability
+* Data distribution
+* Backup and storage
+* Scalability
+* Cost-effectiveness
+
+----
+
+## Bio4j
+
+### **=**
+
+### Bio Data 
+
+### **+** 
+
+### Graph Databases 
+
+### **+** 
+
+### The Cloud
 
 
 
@@ -137,39 +163,13 @@ Bio Data **+** Graph Databases **+** The Cloud
 * [**BG7**](http://bg7.ohnosequences.com/) bacterial genome annotation system 
 * Need for massive direct access to **protein information**
 
-----
+\ 
 
 ### More and more data!
 
-* As _other_ data sources were becoming a _bottleneck_ they were being added to Bio4j
-* First it was Uniprot KB, then Uniref and **we didn't stop yet**
-
-\ 
-
-Some numbers:
-
-* $10^9$ edges of $150$ types
-* $2 \times 10^8$ nodes of $40$ types
-* $6 \times 10^8$ properties
-
-
-<!-- * **`1,216,993,547`** relationships
-* `190,625,351` nodes
-* `584,436,429` properties
-* `144` relationship types
-* `42` node types
--->
-
-----
-
-### Bio4j structure
-
-Bio4j importing process is **modular** and **customizable** allowing you to import just the data you are interested in
-
-[<img width="85%" src="resources/images/bio4j-modules.png"/>](resources/images/bio4j-modules.png)
-
-<!-- Just keep in mind that you must be **coherent**
-_e.g. you cannot import protein interactions if you didn't import any protein yet!_ -->
+* As _other_ data sources were becoming a _bottleneck_ they were integrated into Bio4j
+* First it was Uniprot KB, then Uniref, ... 
+* And **we didn't stop yet!**
 
 ----
 
@@ -177,7 +177,7 @@ _e.g. you cannot import protein interactions if you didn't import any protein ye
 
 1. Abstract **domain model** with precise typing
 2. Universal **[Blueprints](https://github.com/tinkerpop/blueprints/)** implementation
-3. **Technology-specific** versions (optimizations, features):
+3. **Technology-specific** versions:
     * **[Neo4j](https://github.com/neo4j/neo4j)** 
     * **[Titan](https://github.com/thinkaurelius/titan/)** (WIP)
     * **[OrientDB](https://github.com/orientechnologies/orientdb/)** (planned)
@@ -192,13 +192,42 @@ _same_ **domain model** in the client's code
 
 ----
 
-### Domain model
+### Bio4j domain model
 
-Bio4j database has a **well-defined** domain model and all nodes and relationships comply with this abstract model
+<!-- Bio4j database has a **well-defined** domain model and all nodes and relationships comply with this abstract model -->
+
+* $10^9$ edges of **$150$ types**
+* $2 \times 10^8$ nodes of **$40$ types**
+* $6 \times 10^8$ properties
 
 [<img width="100%" src="resources/images/domain-model.png"/>](resources/images/domain-model.png)
 
+<!-- * **`1,216,993,547`** relationships
+* `190,625,351` nodes
+* `584,436,429` properties
+* `144` relationship types
+* `42` node types
+-->
+
 ----
+
+### Bio4j structure
+
+The importing process is **modular** and **customizable**  
+allowing you to import just the data you are interested in
+
+[<img width="100%" src="resources/images/domain-model-modules.png"/>](resources/images/domain-model-modules.png)
+
+----
+
+### Bio4j module system
+
+[Statika](http://ohnosequences.com/statika) helps to manage dependencies between modules and simplifies import and deployment in the cloud 
+
+[<img width="90%" src="resources/images/bio4j-modules.png"/>](resources/images/bio4j-modules.png)
+
+<!-- Just keep in mind that you must be **coherent**
+_e.g. you cannot import protein interactions if you didn't import any protein yet!_ -->
 
 <!-- Not sure if I should talk about this: (may be too technical and I don't know much) -->
 <!-- 
@@ -215,17 +244,6 @@ Bio4j database has a **well-defined** domain model and all nodes and relationshi
 * **Type** definitions $\rightarrow$ _constraints!_
 -->
 
-### Bio4j and the cloud
-
-<img width="200" style="background:trasparent; border:none; box-shadow:none;" src="resources/logos/aws-logo.png"/>
-
-#### Data as a service 
-
-* Interoperability 
-* Data distribution
-* Backup and storage
-* Scalability
-* Cost-effectiveness
 
 
 # Under the hood
@@ -234,29 +252,34 @@ Bio4j database has a **well-defined** domain model and all nodes and relationshi
 
 ### How we use Bio4j in Era7
 
-* **[BG7](http://bg7.ohnosequences.com)** genome annotation
+* **BG7** genome annotation
 * **MG7** metagenomics analysis
-* Comparative genomics, network analysis, genome assembly, ...
+* Comparative genomics, network analysis,  
+  genome assembly, ...
 
-<!-- What is comparative genomics? -->
+----
 
 <!-- Don't know anything about this: -->
-<!-- 
-### Use cases
+ 
+### How others use Bio4j
 
-**Ohio State University**
+\ 
+
+#### Ohio State University
 
 * **Integration** and **analysis** of Chip-seq data
 * **Modeling** genomic information and **gene regulatory networks**
 
-**Berkeley Phylogenomics Group**
+\ 
+
+#### Berkeley Phylogenomics Group
 
 * Graph database for _Big Data challenges_ in **genomics** developed **on top of Bio4j**
--->
+
 
 ----
 
-### How we develop Bio4j?
+### How we develop Bio4j
 
 - Java + Scala source code
 - **[Statika](http://ohnosequences/statika)**-based module system
@@ -267,31 +290,38 @@ Bio4j database has a **well-defined** domain model and all nodes and relationshi
 
 ----
 
-### Who's doing Bio4j?
+### Who's doing Bio4j
 
 [Ohnosequences!](http://ohnosequences.com)  
 [Era7 bioinformatics](http://era7bioinformatics.com) R&D group
 
-|                                                                   |     |                                 |
-| ----------------------------------------------------------------: | :-: | :------------------------------ |
-|              [**Pablo Pareja**](http://ohnosequences.com/ppareja) |  —  | project leader & main developer |
-| [**Eduardo Pareja-Tobes**](http://ohnosequences.com/eparejatobes) |  —  | technology & architecture       |
-|               [**Raquel Tobes**](http://ohnosequences.com/rtobes) |  —  | bio data integration            |
-|         [**Marina Manrique**](http://ohnosequences.com/mmanrique) |  —  | bio data integration            |
-|           [**Alexey Alekhin**](http://ohnosequences.com/aalekhin) |  —  | module system developer         |
-|            [**Evdokim Kovach**](http://ohnosequences.com/ekovach) |  —  | developer                       |
+|                                                                   |                                 |
+| ----------------------------------------------------------------: | :------------------------------ |
+|              [**Pablo Pareja**](http://ohnosequences.com/ppareja) | project leader & main developer |
+| [**Eduardo Pareja-Tobes**](http://ohnosequences.com/eparejatobes) | technology & architecture       |
+|               [**Raquel Tobes**](http://ohnosequences.com/rtobes) | bio data integration            |
+|         [**Marina Manrique**](http://ohnosequences.com/mmanrique) | bio data integration            |
+|           [**Alexey Alekhin**](http://ohnosequences.com/aalekhin) | module system developer         |
+|            [**Evdokim Kovach**](http://ohnosequences.com/ekovach) | developer                       |
 
 ----
 
 ### Contacts
 
 * [\@bio4j](http://twitter.com/bio4j) **Twitter** for news
-* [bio4j](https://github.com/bio4j) **Github** org for the developement process
+* [bio4j](https://github.com/bio4j) **Github** org for the development process
 * [bio4j-user](http://groups.google.com/group/bio4j-user) **Google group** for the user feedback
-* [bio4j](http://www.linkedin.com/groups/Bio4j-3890937) **Linkedin**
+* [bio4j](http://www.linkedin.com/groups/Bio4j-3890937) **Linkedin** <!-- what is linkedin group for? -->
 
-<!-- what is linkedin group for? -->
+<br/>
+
+### **[bio4j.com](http://bio4j.com)**
 
 ----
 
 ### Thank you for attention!
+
+<br/><br/><br/>
+
+<span style="font-size:0.8em">_The source and the latest version of these slides can be found at_  
+[**`github.com/ohnosequences/IWBBIO-2014`**](https://github.com/ohnosequences/IWBBIO-2014)</span>

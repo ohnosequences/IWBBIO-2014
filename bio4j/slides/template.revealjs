@@ -64,7 +64,7 @@ $endfor$
 $for(author)$<h4>$author$</h4>$endfor$
 <p>
 <h4>$date$</h4>
-</p><br/>
+</p>
 <img width="190" style="background:trasparent; border:none; box-shadow:none; margin:10px;" src="resources/logos/bio4j-logo.png">
 <br/>
 <img width="190" style="background:trasparent; border:none; box-shadow:none; margin:0px;" src="resources/logos/ohnoseq-logo.png">
