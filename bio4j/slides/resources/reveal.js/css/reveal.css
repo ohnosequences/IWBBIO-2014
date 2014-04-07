@@ -383,7 +383,7 @@ body {
 .reveal table td {
   text-align: left;
   padding: 0.2em 0.5em 0.2em 0.5em;
-  border-bottom: 1px solid;
+  /*border-bottom: 1px solid;*/
 }
 
 .reveal table tr:last-child td {
