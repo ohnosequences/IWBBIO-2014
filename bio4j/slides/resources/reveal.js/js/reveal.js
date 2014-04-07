@@ -3,7 +3,7 @@
  * http://lab.hakim.se/reveal-js
  * MIT licensed
  *
- * Copyright (C) 2013 Hakim El Hattab, http://hakim.se
+ * Copyright (C) 2014 Hakim El Hattab, http://hakim.se
  */
 var Reveal = (function(){
 
@@ -150,12 +150,6 @@ var Reveal = (function(){
 
 		// Delays updates to the URL due to a Chrome thumbnailer bug
 		writeURLTimeout = 0,
-
-		// A delay used to activate the overview mode
-		activateOverviewTimeout = 0,
-
-		// A delay used to deactivate the overview mode
-		deactivateOverviewTimeout = 0,
 
 		// Flags if the interaction event listeners are bound
 		eventsAreBound = false,
@@ -431,71 +425,26 @@ var Reveal = (function(){
 		dom.background.innerHTML = '';
 		dom.background.classList.add( 'no-transition' );
 
-		// Helper method for creating a background element for the
-		// given slide
-		function _createBackground( slide, container ) {
-
-			var data = {
-				background: slide.getAttribute( 'data-background' ),
-				backgroundSize: slide.getAttribute( 'data-background-size' ),
-				backgroundImage: slide.getAttribute( 'data-background-image' ),
-				backgroundColor: slide.getAttribute( 'data-background-color' ),
-				backgroundRepeat: slide.getAttribute( 'data-background-repeat' ),
-				backgroundPosition: slide.getAttribute( 'data-background-position' ),
-				backgroundTransition: slide.getAttribute( 'data-background-transition' )
-			};
-
-			var element = document.createElement( 'div' );
-			element.className = 'slide-background';
-
-			if( data.background ) {
-				// Auto-wrap image urls in url(...)
-				if( /^(http|file|\/\/)/gi.test( data.background ) || /\.(svg|png|jpg|jpeg|gif|bmp)$/gi.test( data.background ) ) {
-					element.style.backgroundImage = 'url('+ data.background +')';
-				}
-				else {
-					element.style.background = data.background;
-				}
-			}
-
-			if( data.background || data.backgroundColor || data.backgroundImage ) {
-				element.setAttribute( 'data-background-hash', data.background + data.backgroundSize + data.backgroundImage + data.backgroundColor + data.backgroundRepeat + data.backgroundPosition + data.backgroundTransition );
-			}
-
-			// Additional and optional background properties
-			if( data.backgroundSize ) element.style.backgroundSize = data.backgroundSize;
-			if( data.backgroundImage ) element.style.backgroundImage = 'url("' + data.backgroundImage + '")';
-			if( data.backgroundColor ) element.style.backgroundColor = data.backgroundColor;
-			if( data.backgroundRepeat ) element.style.backgroundRepeat = data.backgroundRepeat;
-			if( data.backgroundPosition ) element.style.backgroundPosition = data.backgroundPosition;
-			if( data.backgroundTransition ) element.setAttribute( 'data-background-transition', data.backgroundTransition );
-
-			container.appendChild( element );
-
-			return element;
-
-		}
-
 		// Iterate over all horizontal slides
 		toArray( document.querySelectorAll( HORIZONTAL_SLIDES_SELECTOR ) ).forEach( function( slideh ) {
 
 			var backgroundStack;
 
 			if( isPrintingPDF() ) {
-				backgroundStack = _createBackground( slideh, slideh );
+				backgroundStack = createBackground( slideh, slideh );
 			}
 			else {
-				backgroundStack = _createBackground( slideh, dom.background );
+				backgroundStack = createBackground( slideh, dom.background );
 			}
 
 			// Iterate over all vertical slides
 			toArray( slideh.querySelectorAll( 'section' ) ).forEach( function( slidev ) {
 
 				if( isPrintingPDF() ) {
-					_createBackground( slidev, slidev );
+					createBackground( slidev, slidev );
 				}
 				else {
-					_createBackground( slidev, backgroundStack );
+					createBackground( slidev, backgroundStack );
 				}
 
 			} );
@@ -523,6 +472,79 @@ var Reveal = (function(){
 			dom.wrapper.classList.remove( 'has-parallax-background' );
 
 		}
+
+	}
+
+	/**
+	 * Creates a background for the given slide.
+	 *
+	 * @param {HTMLElement} slide
+	 * @param {HTMLElement} container The element that the background
+	 * should be appended to
+	 */
+	function createBackground( slide, container ) {
+
+		var data = {
+			background: slide.getAttribute( 'data-background' ),
+			backgroundSize: slide.getAttribute( 'data-background-size' ),
+			backgroundImage: slide.getAttribute( 'data-background-image' ),
+			backgroundVideo: slide.getAttribute( 'data-background-video' ),
+			backgroundColor: slide.getAttribute( 'data-background-color' ),
+			backgroundRepeat: slide.getAttribute( 'data-background-repeat' ),
+			backgroundPosition: slide.getAttribute( 'data-background-position' ),
+			backgroundTransition: slide.getAttribute( 'data-background-transition' )
+		};
+
+		var element = document.createElement( 'div' );
+		element.className = 'slide-background';
+
+		if( data.background ) {
+			// Auto-wrap image urls in url(...)
+			if( /^(http|file|\/\/)/gi.test( data.background ) || /\.(svg|png|jpg|jpeg|gif|bmp)$/gi.test( data.background ) ) {
+				element.style.backgroundImage = 'url('+ data.background +')';
+			}
+			else {
+				element.style.background = data.background;
+			}
+		}
+
+		// Create a hash for this combination of background settings.
+		// This is used to determine when two slide backgrounds are
+		// the same.
+		if( data.background || data.backgroundColor || data.backgroundImage || data.backgroundVideo ) {
+			element.setAttribute( 'data-background-hash', data.background +
+															data.backgroundSize +
+															data.backgroundImage +
+															data.backgroundVideo +
+															data.backgroundColor +
+															data.backgroundRepeat +
+															data.backgroundPosition +
+															data.backgroundTransition );
+		}
+
+		// Additional and optional background properties
+		if( data.backgroundSize ) element.style.backgroundSize = data.backgroundSize;
+		if( data.backgroundImage ) element.style.backgroundImage = 'url("' + data.backgroundImage + '")';
+		if( data.backgroundColor ) element.style.backgroundColor = data.backgroundColor;
+		if( data.backgroundRepeat ) element.style.backgroundRepeat = data.backgroundRepeat;
+		if( data.backgroundPosition ) element.style.backgroundPosition = data.backgroundPosition;
+		if( data.backgroundTransition ) element.setAttribute( 'data-background-transition', data.backgroundTransition );
+
+		// Create video background element
+		if( data.backgroundVideo ) {
+			var video = document.createElement( 'video' );
+
+			// Support comma separated lists of video sources
+			data.backgroundVideo.split( ',' ).forEach( function( source ) {
+				video.innerHTML += '<source src="'+ source +'">';
+			} );
+
+			element.appendChild( video );
+		}
+
+		container.appendChild( element );
+
+		return element;
 
 	}
 
@@ -591,7 +613,13 @@ var Reveal = (function(){
 			enablePreviewLinks( '[data-preview-link]' );
 		}
 
-		// Auto-slide playback controls
+		// Remove existing auto-slide controls
+		if( autoSlidePlayer ) {
+			autoSlidePlayer.destroy();
+			autoSlidePlayer = null;
+		}
+
+		// Generate auto-slide controls if needed
 		if( numberOfSlides > 1 && config.autoSlide && config.autoSlideStoppable && features.canvas && features.requestAnimationFrame ) {
 			autoSlidePlayer = new Playback( dom.wrapper, function() {
 				return Math.min( Math.max( ( Date.now() - autoSlideStartTime ) / autoSlide, 0 ), 1 );
@@ -600,9 +628,13 @@ var Reveal = (function(){
 			autoSlidePlayer.on( 'click', onAutoSlidePlayerClick );
 			autoSlidePaused = false;
 		}
-		else if( autoSlidePlayer ) {
-			autoSlidePlayer.destroy();
-			autoSlidePlayer = null;
+
+		// When fragments are turned off they should be visible
+		if( config.fragments === false ) {
+			toArray( dom.slides.querySelectorAll( '.fragment' ) ).forEach( function( element ) {
+				element.classList.add( 'visible' );
+				element.classList.remove( 'current-fragment' );
+			} );
 		}
 
 		// Load the theme in the config, if it's not already loaded
@@ -637,7 +669,14 @@ var Reveal = (function(){
 			dom.wrapper.addEventListener( 'touchend', onTouchEnd, false );
 
 			// Support pointer-style touch interaction as well
-			if( window.navigator.msPointerEnabled ) {
+			if( window.navigator.pointerEnabled ) {
+				// IE 11 uses un-prefixed version of pointer events
+				dom.wrapper.addEventListener( 'pointerdown', onPointerDown, false );
+				dom.wrapper.addEventListener( 'pointermove', onPointerMove, false );
+				dom.wrapper.addEventListener( 'pointerup', onPointerUp, false );
+			}
+			else if( window.navigator.msPointerEnabled ) {
+				// IE 10 uses prefixed version of pointer events
 				dom.wrapper.addEventListener( 'MSPointerDown', onPointerDown, false );
 				dom.wrapper.addEventListener( 'MSPointerMove', onPointerMove, false );
 				dom.wrapper.addEventListener( 'MSPointerUp', onPointerUp, false );
@@ -696,7 +735,14 @@ var Reveal = (function(){
 		dom.wrapper.removeEventListener( 'touchmove', onTouchMove, false );
 		dom.wrapper.removeEventListener( 'touchend', onTouchEnd, false );
 
-		if( window.navigator.msPointerEnabled ) {
+		// IE11
+		if( window.navigator.pointerEnabled ) {
+			dom.wrapper.removeEventListener( 'pointerdown', onPointerDown, false );
+			dom.wrapper.removeEventListener( 'pointermove', onPointerMove, false );
+			dom.wrapper.removeEventListener( 'pointerup', onPointerUp, false );
+		}
+		// IE10
+		else if( window.navigator.msPointerEnabled ) {
 			dom.wrapper.removeEventListener( 'MSPointerDown', onPointerDown, false );
 			dom.wrapper.removeEventListener( 'MSPointerMove', onPointerMove, false );
 			dom.wrapper.removeEventListener( 'MSPointerUp', onPointerUp, false );
@@ -735,6 +781,22 @@ var Reveal = (function(){
 	function toArray( o ) {
 
 		return Array.prototype.slice.call( o );
+
+	}
+
+	/**
+	 * Utility for deserializing a value.
+	 */
+	function deserialize( value ) {
+
+		if( typeof value === 'string' ) {
+			if( value === 'null' ) return null;
+			else if( value === 'true' ) return true;
+			else if( value === 'false' ) return false;
+			else if( value.match( /^\d+$/ ) ) return parseFloat( value );
+		}
+
+		return value;
 
 	}
 
@@ -804,40 +866,26 @@ var Reveal = (function(){
 
 	/**
 	 * Returns the remaining height within the parent of the
-	 * target element after subtracting the height of all
-	 * siblings.
+	 * target element.
 	 *
-	 * remaining height = [parent height] - [ siblings height]
+	 * remaining height = [ configured parent height ] - [ current parent height ]
 	 */
 	function getRemainingHeight( element, height ) {
 
 		height = height || 0;
 
 		if( element ) {
-			var parent = element.parentNode;
-			var siblings = parent.childNodes;
+			var newHeight, oldHeight = element.style.height;
 
-			// Subtract the height of each sibling
-			toArray( siblings ).forEach( function( sibling ) {
+			// Change the .stretch element height to 0 in order find the height of all
+			// the other elements
+			element.style.height = '0px';
+			newHeight = height - element.parentNode.offsetHeight;
 
-				if( typeof sibling.offsetHeight === 'number' && sibling !== element ) {
+			// Restore the old height, just in case
+			element.style.height = oldHeight + 'px';
 
-					var styles = window.getComputedStyle( sibling ),
-						marginTop = parseInt( styles.marginTop, 10 ),
-						marginBottom = parseInt( styles.marginBottom, 10 );
-
-					height -= sibling.offsetHeight + marginTop + marginBottom;
-
-				}
-
-			} );
-
-			var elementStyles = window.getComputedStyle( element );
-
-			// Subtract the margins of the target element
-			height -= parseInt( elementStyles.marginTop, 10 ) +
-						parseInt( elementStyles.marginBottom, 10 );
-
+			return newHeight;
 		}
 
 		return height;
@@ -897,7 +945,7 @@ var Reveal = (function(){
 	function enableRollingLinks() {
 
 		if( features.transforms3d && !( 'msPerspective' in document.body.style ) ) {
-			var anchors = document.querySelectorAll( SLIDES_SELECTOR + ' a:not(.image)' );
+			var anchors = document.querySelectorAll( SLIDES_SELECTOR + ' a' );
 
 			for( var i = 0, len = anchors.length; i < len; i++ ) {
 				var anchor = anchors[i];
@@ -1063,14 +1111,17 @@ var Reveal = (function(){
 			scale = Math.max( scale, config.minScale );
 			scale = Math.min( scale, config.maxScale );
 
-			// Prefer applying scale via zoom since Chrome blurs scaled content
-			// with nested transforms
-			if( typeof dom.slides.style.zoom !== 'undefined' && !navigator.userAgent.match( /(iphone|ipod|ipad|android)/gi ) ) {
+			// Prefer zooming in WebKit so that content remains crisp
+			if( /webkit/i.test( navigator.userAgent ) && typeof dom.slides.style.zoom !== 'undefined' ) {
 				dom.slides.style.zoom = scale;
 			}
 			// Apply scale transform as a fallback
 			else {
-				transformElement( dom.slides, 'translate(-50%, -50%) scale('+ scale +') translate(50%, 50%)' );
+				dom.slides.style.left = '50%';
+				dom.slides.style.top = '50%';
+				dom.slides.style.bottom = 'auto';
+				dom.slides.style.right = 'auto';
+				transformElement( dom.slides, 'translate(-50%, -50%) scale('+ scale +')' );
 			}
 
 			// Select all slides, vertical and horizontal
@@ -1078,24 +1129,28 @@ var Reveal = (function(){
 
 			for( var i = 0, len = slides.length; i < len; i++ ) {
 				var slide = slides[ i ];
+				var style = window.getComputedStyle( slide );
 
-				// Don't bother updating invisible slides
-				if( slide.style.display === 'none' ) {
+				// Don't update invisible slides
+				if( style.display === 'none' ) {
 					continue;
 				}
-
-				if( config.center || slide.classList.contains( 'center' ) ) {
-					// Vertical stacks are not centred since their section
-					// children will be
-					if( slide.classList.contains( 'stack' ) ) {
-						slide.style.top = 0;
+				// If the display mode is 'block' flexbox is not supported by
+				// the current browser so we fall back on JavaScript centering
+				else if( style.display === 'block' ) {
+					if( config.center || slide.classList.contains( 'center' ) ) {
+						// Vertical stacks are not centred since their section children will be
+						if( slide.classList.contains( 'stack' ) ) {
+							slide.style.top = 0;
+						}
+						else {
+							slide.style.top = Math.max( ( ( slideHeight - getAbsoluteHeight( slide ) ) / 2 ) - slidePadding, 0 ) + 'px';
+							slide.style.height = 'auto';
+						}
 					}
 					else {
-						slide.style.top = Math.max( - ( getAbsoluteHeight( slide ) / 2 ) - slidePadding, -slideHeight / 2 ) + 'px';
+						slide.style.top = '';
 					}
-				}
-				else {
-					slide.style.top = '';
 				}
 
 			}
@@ -1117,7 +1172,7 @@ var Reveal = (function(){
 		toArray( dom.slides.querySelectorAll( 'section > .stretch' ) ).forEach( function( element ) {
 
 			// Determine how much vertical space we can use
-			var remainingHeight = getRemainingHeight( element, ( height - ( padding * 2 ) ) );
+			var remainingHeight = getRemainingHeight( element, height );
 
 			// Consider the aspect ratio of media elements
 			if( /(img|video)/gi.test( element.nodeName ) ) {
@@ -1198,67 +1253,57 @@ var Reveal = (function(){
 			dom.wrapper.classList.add( 'overview' );
 			dom.wrapper.classList.remove( 'overview-deactivating' );
 
-			clearTimeout( activateOverviewTimeout );
-			clearTimeout( deactivateOverviewTimeout );
+			var horizontalSlides = document.querySelectorAll( HORIZONTAL_SLIDES_SELECTOR );
 
-			// Not the pretties solution, but need to let the overview
-			// class apply first so that slides are measured accurately
-			// before we can position them
-			activateOverviewTimeout = setTimeout( function() {
+			for( var i = 0, len1 = horizontalSlides.length; i < len1; i++ ) {
+				var hslide = horizontalSlides[i],
+					hoffset = config.rtl ? -105 : 105;
 
-				var horizontalSlides = document.querySelectorAll( HORIZONTAL_SLIDES_SELECTOR );
+				hslide.setAttribute( 'data-index-h', i );
 
-				for( var i = 0, len1 = horizontalSlides.length; i < len1; i++ ) {
-					var hslide = horizontalSlides[i],
-						hoffset = config.rtl ? -105 : 105;
+				// Apply CSS transform
+				transformElement( hslide, 'translateZ(-'+ depth +'px) translate(' + ( ( i - indexh ) * hoffset ) + '%, 0%)' );
 
-					hslide.setAttribute( 'data-index-h', i );
+				if( hslide.classList.contains( 'stack' ) ) {
 
-					// Apply CSS transform
-					transformElement( hslide, 'translateZ(-'+ depth +'px) translate(' + ( ( i - indexh ) * hoffset ) + '%, 0%)' );
+					var verticalSlides = hslide.querySelectorAll( 'section' );
 
-					if( hslide.classList.contains( 'stack' ) ) {
+					for( var j = 0, len2 = verticalSlides.length; j < len2; j++ ) {
+						var verticalIndex = i === indexh ? indexv : getPreviousVerticalIndex( hslide );
 
-						var verticalSlides = hslide.querySelectorAll( 'section' );
+						var vslide = verticalSlides[j];
 
-						for( var j = 0, len2 = verticalSlides.length; j < len2; j++ ) {
-							var verticalIndex = i === indexh ? indexv : getPreviousVerticalIndex( hslide );
+						vslide.setAttribute( 'data-index-h', i );
+						vslide.setAttribute( 'data-index-v', j );
 
-							var vslide = verticalSlides[j];
-
-							vslide.setAttribute( 'data-index-h', i );
-							vslide.setAttribute( 'data-index-v', j );
-
-							// Apply CSS transform
-							transformElement( vslide, 'translate(0%, ' + ( ( j - verticalIndex ) * 105 ) + '%)' );
-
-							// Navigate to this slide on click
-							vslide.addEventListener( 'click', onOverviewSlideClicked, true );
-						}
-
-					}
-					else {
+						// Apply CSS transform
+						transformElement( vslide, 'translate(0%, ' + ( ( j - verticalIndex ) * 105 ) + '%)' );
 
 						// Navigate to this slide on click
-						hslide.addEventListener( 'click', onOverviewSlideClicked, true );
-
+						vslide.addEventListener( 'click', onOverviewSlideClicked, true );
 					}
+
 				}
+				else {
 
-				updateSlidesVisibility();
+					// Navigate to this slide on click
+					hslide.addEventListener( 'click', onOverviewSlideClicked, true );
 
-				layout();
-
-				if( !wasActive ) {
-					// Notify observers of the overview showing
-					dispatchEvent( 'overviewshown', {
-						'indexh': indexh,
-						'indexv': indexv,
-						'currentSlide': currentSlide
-					} );
 				}
+			}
 
-			}, 10 );
+			updateSlidesVisibility();
+
+			layout();
+
+			if( !wasActive ) {
+				// Notify observers of the overview showing
+				dispatchEvent( 'overviewshown', {
+					'indexh': indexh,
+					'indexv': indexv,
+					'currentSlide': currentSlide
+				} );
+			}
 
 		}
 
@@ -1273,9 +1318,6 @@ var Reveal = (function(){
 		// Only proceed if enabled in config
 		if( config.overview ) {
 
-			clearTimeout( activateOverviewTimeout );
-			clearTimeout( deactivateOverviewTimeout );
-
 			dom.wrapper.classList.remove( 'overview' );
 
 			// Temporarily add a class so that transitions can do different things
@@ -1283,7 +1325,7 @@ var Reveal = (function(){
 			// moving from slide to slide
 			dom.wrapper.classList.add( 'overview-deactivating' );
 
-			deactivateOverviewTimeout = setTimeout( function () {
+			setTimeout( function () {
 				dom.wrapper.classList.remove( 'overview-deactivating' );
 			}, 1 );
 
@@ -1370,7 +1412,7 @@ var Reveal = (function(){
 							element.webkitRequestFullscreen ||
 							element.webkitRequestFullScreen ||
 							element.mozRequestFullScreen ||
-							element.msRequestFullScreen;
+							element.msRequestFullscreen;
 
 		if( requestMethod ) {
 			requestMethod.apply( element );
@@ -1414,13 +1456,13 @@ var Reveal = (function(){
 	/**
 	 * Toggles the paused mode on and off.
 	 */
-	function togglePause() {
+	function togglePause( override ) {
 
-		if( isPaused() ) {
-			resume();
+		if( typeof override === 'boolean' ) {
+			override ? pause() : resume();
 		}
 		else {
-			pause();
+			isPaused() ? resume() : pause();
 		}
 
 	}
@@ -1431,6 +1473,34 @@ var Reveal = (function(){
 	function isPaused() {
 
 		return dom.wrapper.classList.contains( 'paused' );
+
+	}
+
+	/**
+	 * Toggles the auto slide mode on and off.
+	 *
+	 * @param {Boolean} override Optional flag which sets the desired state. 
+	 * True means autoplay starts, false means it stops.
+	 */
+
+	function toggleAutoSlide( override ) {
+
+		if( typeof override === 'boolean' ) {
+			override ? resumeAutoSlide() : pauseAutoSlide();
+		}
+
+		else {
+			autoSlidePaused ? resumeAutoSlide() : pauseAutoSlide();
+		}
+
+	}
+
+	/**
+	 * Checks if the auto slide mode is currently on.
+	 */
+	function isAutoSliding() {
+
+		return !!( autoSlide && !autoSlidePaused );
 
 	}
 
@@ -1708,26 +1778,30 @@ var Reveal = (function(){
 					// Any element previous to index is given the 'past' class
 					element.classList.add( reverse ? 'future' : 'past' );
 
-					var pastFragments = toArray( element.querySelectorAll( '.fragment' ) );
+					if( config.fragments ) {
+						var pastFragments = toArray( element.querySelectorAll( '.fragment' ) );
 
-					// Show all fragments on prior slides
-					while( pastFragments.length ) {
-						var pastFragment = pastFragments.pop();
-						pastFragment.classList.add( 'visible' );
-						pastFragment.classList.remove( 'current-fragment' );
+						// Show all fragments on prior slides
+						while( pastFragments.length ) {
+							var pastFragment = pastFragments.pop();
+							pastFragment.classList.add( 'visible' );
+							pastFragment.classList.remove( 'current-fragment' );
+						}
 					}
 				}
 				else if( i > index ) {
 					// Any element subsequent to index is given the 'future' class
 					element.classList.add( reverse ? 'past' : 'future' );
 
-					var futureFragments = toArray( element.querySelectorAll( '.fragment.visible' ) );
+					if( config.fragments ) {
+						var futureFragments = toArray( element.querySelectorAll( '.fragment.visible' ) );
 
-					// No fragments in future slides should be visible ahead of time
-					while( futureFragments.length ) {
-						var futureFragment = futureFragments.pop();
-						futureFragment.classList.remove( 'visible' );
-						futureFragment.classList.remove( 'current-fragment' );
+						// No fragments in future slides should be visible ahead of time
+						while( futureFragments.length ) {
+							var futureFragment = futureFragments.pop();
+							futureFragment.classList.remove( 'visible' );
+							futureFragment.classList.remove( 'current-fragment' );
+						}
 					}
 				}
 
@@ -1793,7 +1867,7 @@ var Reveal = (function(){
 				distanceX = Math.abs( ( indexh - x ) % ( horizontalSlidesLength - viewDistance ) ) || 0;
 
 				// Show the horizontal slide if it's within the view distance
-				horizontalSlide.style.display = distanceX > viewDistance ? 'none' : 'block';
+				horizontalSlide.classList[ distanceX > viewDistance ? 'remove' : 'add' ]( 'visible' );
 
 				if( verticalSlidesLength ) {
 
@@ -1804,7 +1878,7 @@ var Reveal = (function(){
 
 						distanceY = x === indexh ? Math.abs( indexv - y ) : Math.abs( y - oy );
 
-						verticalSlide.style.display = ( distanceX + distanceY ) > viewDistance ? 'none' : 'block';
+						verticalSlide.classList[ ( distanceX + distanceY ) > viewDistance ? 'remove' : 'add' ]( 'visible' );
 					}
 
 				}
@@ -1822,42 +1896,7 @@ var Reveal = (function(){
 		// Update progress if enabled
 		if( config.progress && dom.progress ) {
 
-			var horizontalSlides = toArray( document.querySelectorAll( HORIZONTAL_SLIDES_SELECTOR ) );
-
-			// The number of past and total slides
-			var totalCount = document.querySelectorAll( SLIDES_SELECTOR + ':not(.stack)' ).length;
-			var pastCount = 0;
-
-			// Step through all slides and count the past ones
-			mainLoop: for( var i = 0; i < horizontalSlides.length; i++ ) {
-
-				var horizontalSlide = horizontalSlides[i];
-				var verticalSlides = toArray( horizontalSlide.querySelectorAll( 'section' ) );
-
-				for( var j = 0; j < verticalSlides.length; j++ ) {
-
-					// Stop as soon as we arrive at the present
-					if( verticalSlides[j].classList.contains( 'present' ) ) {
-						break mainLoop;
-					}
-
-					pastCount++;
-
-				}
-
-				// Stop as soon as we arrive at the present
-				if( horizontalSlide.classList.contains( 'present' ) ) {
-					break;
-				}
-
-				// Don't count the wrapping section for vertical slides
-				if( horizontalSlide.classList.contains( 'stack' ) === false ) {
-					pastCount++;
-				}
-
-			}
-
-			dom.progressbar.style.width = ( pastCount / ( totalCount - 1 ) ) * window.innerWidth + 'px';
+			dom.progressbar.style.width = getProgress() * window.innerWidth + 'px';
 
 		}
 
@@ -1965,7 +2004,7 @@ var Reveal = (function(){
 			}
 
 			if( includeAll || h === indexh ) {
-				toArray( backgroundh.childNodes ).forEach( function( backgroundv, v ) {
+				toArray( backgroundh.querySelectorAll( 'section' ) ).forEach( function( backgroundv, v ) {
 
 					if( v < indexv ) {
 						backgroundv.className = 'slide-background past';
@@ -1985,9 +2024,22 @@ var Reveal = (function(){
 
 		} );
 
-		// Don't transition between identical backgrounds. This
-		// prevents unwanted flicker.
+		// Stop any currently playing video background
+		if( previousBackground ) {
+
+			var previousVideo = previousBackground.querySelector( 'video' );
+			if( previousVideo ) previousVideo.pause();
+
+		}
+
 		if( currentBackground ) {
+
+			// Start video playback
+			var currentVideo = currentBackground.querySelector( 'video' );
+			if( currentVideo ) currentVideo.play();
+
+			// Don't transition between identical backgrounds. This
+			// prevents unwanted flicker.
 			var previousBackgroundHash = previousBackground ? previousBackground.getAttribute( 'data-background-hash' ) : null;
 			var currentBackgroundHash = currentBackground.getAttribute( 'data-background-hash' );
 			if( currentBackgroundHash && currentBackgroundHash === previousBackgroundHash && currentBackground !== previousBackground ) {
@@ -1995,6 +2047,7 @@ var Reveal = (function(){
 			}
 
 			previousBackground = currentBackground;
+
 		}
 
 		// Allow the first background to apply without transition
@@ -2032,7 +2085,7 @@ var Reveal = (function(){
 
 			var slideHeight = dom.background.offsetHeight;
 			var verticalSlideCount = verticalSlides.length;
-			var verticalOffset = verticalSlideCount > 0 ? -( backgroundHeight - slideHeight ) / ( verticalSlideCount-1 ) * indexv : 0;
+			var verticalOffset = verticalSlideCount > 1 ? -( backgroundHeight - slideHeight ) / ( verticalSlideCount-1 ) * indexv : 0;
 
 			dom.background.style.backgroundPosition = horizontalOffset + 'px ' + verticalOffset + 'px';
 
@@ -2150,6 +2203,70 @@ var Reveal = (function(){
 	}
 
 	/**
+	 * Returns a value ranging from 0-1 that represents
+	 * how far into the presentation we have navigated.
+	 */
+	function getProgress() {
+
+		var horizontalSlides = toArray( document.querySelectorAll( HORIZONTAL_SLIDES_SELECTOR ) );
+
+		// The number of past and total slides
+		var totalCount = document.querySelectorAll( SLIDES_SELECTOR + ':not(.stack)' ).length;
+		var pastCount = 0;
+
+		// Step through all slides and count the past ones
+		mainLoop: for( var i = 0; i < horizontalSlides.length; i++ ) {
+
+			var horizontalSlide = horizontalSlides[i];
+			var verticalSlides = toArray( horizontalSlide.querySelectorAll( 'section' ) );
+
+			for( var j = 0; j < verticalSlides.length; j++ ) {
+
+				// Stop as soon as we arrive at the present
+				if( verticalSlides[j].classList.contains( 'present' ) ) {
+					break mainLoop;
+				}
+
+				pastCount++;
+
+			}
+
+			// Stop as soon as we arrive at the present
+			if( horizontalSlide.classList.contains( 'present' ) ) {
+				break;
+			}
+
+			// Don't count the wrapping section for vertical slides
+			if( horizontalSlide.classList.contains( 'stack' ) === false ) {
+				pastCount++;
+			}
+
+		}
+
+		if( currentSlide ) {
+
+			var allFragments = currentSlide.querySelectorAll( '.fragment' );
+
+			// If there are fragments in the current slide those should be
+			// accounted for in the progress.
+			if( allFragments.length > 0 ) {
+				var visibleFragments = currentSlide.querySelectorAll( '.fragment.visible' );
+
+				// This value represents how big a portion of the slide progress
+				// that is made up by its fragments (0-1)
+				var fragmentWeight = 0.9;
+
+				// Add fragment progress to the past slide count
+				pastCount += ( visibleFragments.length / allFragments.length ) * fragmentWeight;
+			}
+
+		}
+
+		return pastCount / ( totalCount - 1 );
+
+	}
+
+	/**
 	 * Checks if this presentation is running inside of the
 	 * speaker notes window.
 	 */
@@ -2173,8 +2290,16 @@ var Reveal = (function(){
 		// If the first bit is invalid and there is a name we can
 		// assume that this is a named link
 		if( isNaN( parseInt( bits[0], 10 ) ) && name.length ) {
-			// Find the slide with the specified name
-			var element = document.querySelector( '#' + name );
+			var element;
+
+			try {
+				// Find the slide with the specified name
+				element = document.querySelector( '#' + name );
+			}
+			catch( e ) {
+				// If the ID is an invalid selector a harmless SyntaxError
+				// may be thrown here.
+			}
 
 			if( element ) {
 				// Find the position of the named slide and navigate to it
@@ -2219,9 +2344,16 @@ var Reveal = (function(){
 			else {
 				var url = '/';
 
+				// Attempt to create a named link based on the slide's ID
+				var id = currentSlide.getAttribute( 'id' );
+				if( id ) {
+					id = id.toLowerCase();
+					id = id.replace( /[^a-zA-Z0-9\-\_\:\.]/g, '' );
+				}
+
 				// If the current slide has an ID, use that as a named link
-				if( currentSlide && typeof currentSlide.getAttribute( 'id' ) === 'string' ) {
-					url = '/' + currentSlide.getAttribute( 'id' );
+				if( currentSlide && typeof id === 'string' && id.length ) {
+					url = '/' + id;
 				}
 				// Otherwise use the /h/v index
 				else {
@@ -2278,6 +2410,49 @@ var Reveal = (function(){
 		}
 
 		return { h: h, v: v, f: f };
+
+	}
+
+	/**
+	 * Retrieves the total number of slides in this presentation.
+	 */
+	function getTotalSlides() {
+
+		return document.querySelectorAll( SLIDES_SELECTOR + ':not(.stack)' ).length;
+
+	}
+
+	/**
+	 * Retrieves the current state of the presentation as
+	 * an object. This state can then be restored at any
+	 * time.
+	 */
+	function getState() {
+
+		var indices = getIndices();
+
+		return {
+			indexh: indices.h,
+			indexv: indices.v,
+			indexf: indices.f,
+			paused: isPaused(),
+			overview: isOverview()
+		};
+
+	}
+
+	/**
+	 * Restores the presentation to the given state.
+	 *
+	 * @param {Object} state As generated by getState()
+	 */
+	function setState( state ) {
+
+		if( typeof state === 'object' ) {
+			slide( deserialize( state.indexh ), deserialize( state.indexv ), deserialize( state.indexf ) );
+			togglePause( deserialize( state.paused ) );
+			toggleOverview( deserialize( state.overview ) );
+		}
 
 	}
 
@@ -2415,6 +2590,7 @@ var Reveal = (function(){
 				}
 
 				updateControls();
+				updateProgress();
 
 				return !!( fragmentsShown.length || fragmentsHidden.length );
 
@@ -2459,14 +2635,21 @@ var Reveal = (function(){
 
 		if( currentSlide ) {
 
+			var currentFragment = currentSlide.querySelector( '.current-fragment' );
+
+			var fragmentAutoSlide = currentFragment ? currentFragment.getAttribute( 'data-autoslide' ) : null;
 			var parentAutoSlide = currentSlide.parentNode ? currentSlide.parentNode.getAttribute( 'data-autoslide' ) : null;
 			var slideAutoSlide = currentSlide.getAttribute( 'data-autoslide' );
 
 			// Pick value in the following priority order:
-			// 1. Current slide's data-autoslide
-			// 2. Parent slide's data-autoslide
-			// 3. Global autoSlide setting
-			if( slideAutoSlide ) {
+			// 1. Current fragment's data-autoslide
+			// 2. Current slide's data-autoslide
+			// 3. Parent slide's data-autoslide
+			// 4. Global autoSlide setting
+			if( fragmentAutoSlide ) {
+				autoSlide = parseInt( fragmentAutoSlide, 10 );
+			}
+			else if( slideAutoSlide ) {
 				autoSlide = parseInt( slideAutoSlide, 10 );
 			}
 			else if( parentAutoSlide ) {
@@ -2519,6 +2702,7 @@ var Reveal = (function(){
 	function pauseAutoSlide() {
 
 		autoSlidePaused = true;
+		dispatchEvent( 'autoslidepaused' );
 		clearTimeout( autoSlideTimeout );
 
 		if( autoSlidePlayer ) {
@@ -2530,6 +2714,7 @@ var Reveal = (function(){
 	function resumeAutoSlide() {
 
 		autoSlidePaused = false;
+		dispatchEvent( 'autoslideresumed' );
 		cueAutoSlide();
 
 	}
@@ -2647,6 +2832,9 @@ var Reveal = (function(){
 	 */
 	function onDocumentKeyDown( event ) {
 
+		// Remember if auto-sliding was paused so we can toggle it
+		var autoSlideWasPaused = autoSlidePaused;
+
 		onUserInput( event );
 
 		// Check if there's a focused element that could be using
@@ -2719,10 +2907,12 @@ var Reveal = (function(){
 				case 32: isOverview() ? deactivateOverview() : event.shiftKey ? navigatePrev() : navigateNext(); break;
 				// return
 				case 13: isOverview() ? deactivateOverview() : triggered = false; break;
-				// b, period, Logitech presenter tools "black screen" button
-				case 66: case 190: case 191: togglePause(); break;
+				// two-spot, semicolon, b, period, Logitech presenter tools "black screen" button
+				case 58: case 59: case 66: case 190: case 191: togglePause(); break;
 				// f
 				case 70: enterFullscreen(); break;
+				// a
+				case 65: if ( config.autoSlideStoppable ) toggleAutoSlide( autoSlideWasPaused ); break;
 				default:
 					triggered = false;
 			}
@@ -2877,7 +3067,7 @@ var Reveal = (function(){
 	 */
 	function onPointerDown( event ) {
 
-		if( event.pointerType === event.MSPOINTER_TYPE_TOUCH ) {
+		if( event.pointerType === event.MSPOINTER_TYPE_TOUCH || event.pointerType === "touch" ) {
 			event.touches = [{ clientX: event.clientX, clientY: event.clientY }];
 			onTouchStart( event );
 		}
@@ -2889,7 +3079,7 @@ var Reveal = (function(){
 	 */
 	function onPointerMove( event ) {
 
-		if( event.pointerType === event.MSPOINTER_TYPE_TOUCH ) {
+		if( event.pointerType === event.MSPOINTER_TYPE_TOUCH || event.pointerType === "touch" )  {
 			event.touches = [{ clientX: event.clientX, clientY: event.clientY }];
 			onTouchMove( event );
 		}
@@ -2901,7 +3091,7 @@ var Reveal = (function(){
 	 */
 	function onPointerUp( event ) {
 
-		if( event.pointerType === event.MSPOINTER_TYPE_TOUCH ) {
+		if( event.pointerType === event.MSPOINTER_TYPE_TOUCH || event.pointerType === "touch" )  {
 			event.touches = [{ clientX: event.clientX, clientY: event.clientY }];
 			onTouchEnd( event );
 		}
@@ -3275,16 +3465,29 @@ var Reveal = (function(){
 		// Toggles the "black screen" mode on/off
 		togglePause: togglePause,
 
+		// Toggles the auto slide mode on/off
+		toggleAutoSlide: toggleAutoSlide,
+
 		// State checks
 		isOverview: isOverview,
 		isPaused: isPaused,
+		isAutoSliding: isAutoSliding,
 
 		// Adds or removes all internal event listeners (such as keyboard)
 		addEventListeners: addEventListeners,
 		removeEventListeners: removeEventListeners,
 
+		// Facility for persisting and restoring the presentation state
+		getState: getState,
+		setState: setState,
+
+		// Presentation progress on range of 0-1
+		getProgress: getProgress,
+
 		// Returns the indices of the current, or specified, slide
 		getIndices: getIndices,
+
+		getTotalSlides: getTotalSlides,
 
 		// Returns the slide at the specified index, y is optional
 		getSlide: function( x, y ) {
@@ -3330,12 +3533,7 @@ var Reveal = (function(){
 			for( var i in query ) {
 				var value = query[ i ];
 
-				query[ i ] = unescape( value );
-
-				if( value === 'null' ) query[ i ] = null;
-				else if( value === 'true' ) query[ i ] = true;
-				else if( value === 'false' ) query[ i ] = false;
-				else if( value.match( /^\d+$/ ) ) query[ i ] = parseFloat( value );
+				query[ i ] = deserialize( unescape( value ) );
 			}
 
 			return query;
