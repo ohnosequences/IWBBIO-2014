@@ -1,6 +1,6 @@
 % Bio4j: bigger, faster, leaner
 % Pablo Pareja-Tobes, Alexey Alekhin, Evdokim Kovach, Marina Manrique, Eduardo Pareja, Raquel Tobes and Eduardo Pareja-Tobes
-% 08.04.2014
+% April 8, [IWBBIO-2014](http://iwbbio.ugr.es/)
 
 # Introduction
 
@@ -16,8 +16,6 @@ around **protein information**
 
 ### Data sources
  
-<!-- TODO: check if this picture makes sense here -->
-
 +------------------------------------------------------------+------------------------------------------------------------------------------+
 |                                                            |                                                                              |
 +============================================================+==============================================================================+
@@ -25,42 +23,20 @@ around **protein information**
 |                                                            | * *[Gene Ontology](http://www.geneontology.org/)* (GO)                       |
 | <img width="400" src="resources/images/data-sources.jpg"/> | * *[UniRef](http://www.uniprot.org/help/uniref)* (50,90,100)                 |
 |                                                            | * *[RefSeq](http://www.ncbi.nlm.nih.gov/RefSeq/)*                            |
-|                                                            | * *[NCBI taxonomy](http://www.ncbi.nlm.nih.gov/Taxonomy/)*                   |
+|                                                            | * *[NCBI Taxonomy](http://www.ncbi.nlm.nih.gov/Taxonomy/)*                   |
 |                                                            | * *[Expasy Enzyme DB](http://enzyme.expasy.org/)*                            |
 +------------------------------------------------------------+------------------------------------------------------------------------------+
 
-<!-- 
-<img width="500" src="resources/images/data-sources.jpg">
-
-* *[UniProt KB](http://www.uniprot.org/help/uniprotkb)* (SwissProt + Trembl)
-* *[Gene Ontology](http://www.geneontology.org/)* (GO)
-* *[UniRef](http://www.uniprot.org/help/uniref)* (50,90,100)
-* *[RefSeq](http://www.ncbi.nlm.nih.gov/RefSeq/)*
-* *[NCBI taxonomy](http://www.ncbi.nlm.nih.gov/Taxonomy/)*
-* *[Expasy Enzyme DB](http://enzyme.expasy.org/)*
--->
-
 ----
-
-<!-- 
-+----------------------------------------------------------------+--------------------------------------------------------------------------------------+
-|                                                                |                                                                                      |
-+================================================================+======================================================================================+
-|                                                                | - Code is under the [**AGPLv3**](https://www.gnu.org/licenses/agpl-3.0.html) license |
-| <img width="300" src="resources/logos/open-science-logo.jpg"/> | - Only [**Open Data**](http://okfn.org/opendata/) is integrated                      |
-|                                                                | - Implementation & release process is                                                |
-|                                                                | [**100% public**](https://github.com/bio4j/bio4j) and totally **transparent**        |
-+----------------------------------------------------------------+--------------------------------------------------------------------------------------+
--->
 
 ### It's open!
 
 [<img width="50%" src="resources/logos/open-science-logo.jpg"/>](https://www.flickr.com/photos/gemmerich/6365692623/in/faves-67338640@N04/)
 
 
-- Code is under the [**AGPLv3**](https://www.gnu.org/licenses/agpl-3.0.html) license
-- Only [**Open Data**](http://okfn.org/opendata/) is integrated
-- Implementation & release process is  
+* Code is under the [**AGPLv3**](https://www.gnu.org/licenses/agpl-3.0.html) license
+* Only [**Open Data**](http://okfn.org/opendata/) is integrated
+* Implementation & release process is  
   [**100% public**](https://github.com/bio4j/bio4j) and totally transparent
 
 ----
@@ -84,6 +60,10 @@ but as the **amount** and **diversity** of data grows,
 
 _Doesn't look very compelling right?_
  
+<aside class="notes">
+    This is the real schema diagram of the GO database
+</aside>
+
 ----
 
 ### Relational model
@@ -156,7 +136,6 @@ doesn't go both ways, which implies
 
 ----
 
-<!-- I'm not sure if I should talk about this: -->
 ### How it all started 
 
 * Need for **massive access** to _Gene Ontology_ annotations
@@ -187,14 +166,15 @@ doesn't go both ways, which implies
 _Different_ **graph topologies** at the storage level,  
 _same_ **domain model** in the client's code
 
-<!-- This way we’re going one step further for making the domain model **independent** from the choice of _database technology_ -->
-<!-- - Neo4j with _labels_ - Titan with _type nodes_ -->
+<aside class="notes">
+    This way we’re going one step further for making the domain model **independent** from the choice of _database technology_
+        - Neo4j with _labels_ 
+        - Titan with _type nodes_
+</aside>
 
 ----
 
 ### Bio4j domain model
-
-<!-- Bio4j database has a **well-defined** domain model and all nodes and relationships comply with this abstract model -->
 
 * $10^9$ edges of **$150$ types**
 * $2 \times 10^8$ nodes of **$40$ types**
@@ -202,12 +182,17 @@ _same_ **domain model** in the client's code
 
 [<img width="100%" src="resources/images/domain-model.png"/>](resources/images/domain-model.png)
 
-<!-- * **`1,216,993,547`** relationships
+<!-- exact numbers:
+* **`1,216,993,547`** relationships
 * `190,625,351` nodes
 * `584,436,429` properties
 * `144` relationship types
 * `42` node types
 -->
+
+<aside class="notes">
+    Bio4j database has a **well-defined** domain model and all nodes and relationships comply with this abstract model
+</aside>
 
 ----
 
@@ -226,23 +211,11 @@ allowing you to import just the data you are interested in
 
 [<img width="90%" src="resources/images/bio4j-modules.png"/>](resources/images/bio4j-modules.png)
 
-<!-- Just keep in mind that you must be **coherent**
-_e.g. you cannot import protein interactions if you didn't import any protein yet!_ -->
+<aside class="notes">
+    Just keep in mind that you must be **coherent**
+    _e.g. you cannot import protein interactions if you didn't import any protein yet!_
+</aside>
 
-<!-- Not sure if I should talk about this: (may be too technical and I don't know much) -->
-<!-- 
-### Why Neo4j
-
-* Wide **adoption**
-* Stable
-* **Cypher**
-
-### Why Titan
-
-* **Local!** indexes
-* **On-disk** access
-* **Type** definitions $\rightarrow$ _constraints!_
--->
 
 
 
@@ -259,8 +232,6 @@ _e.g. you cannot import protein interactions if you didn't import any protein ye
 
 ----
 
-<!-- Don't know anything about this: -->
- 
 ### How others use Bio4j
 
 \ 
