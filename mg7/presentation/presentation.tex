@@ -103,6 +103,7 @@ microbial community profiling
 } % The short title appears at the bottom of every slide, the full title is only on the title page
 
 
+%Metapasta is a version of MG7 written in Scala programing language that designed to be process big amount of data.
 
 
 
@@ -112,7 +113,8 @@ microbial community profiling
 Oh no sequences! Research Group, Era7 bioinformatics
  \\ % Your institution for the title page
 %\medskip
-\textit{eparejatobes@ohnosequences.com} % Your email address
+Granada, Spain
+%\textit{eparejatobes@ohnosequences.com} % Your email address
 }
 
 %\author{Partner student: Alexandra Vatsiou}
@@ -133,34 +135,75 @@ Oh no sequences! Research Group, Era7 bioinformatics
 %	PRESENTATION SLIDES
 %----------------------------------------------------------------------------------------
 
-\begin{frame}
-\frametitle{MG7}
 
-MG7 is cloud tool for community profiling based on the analysis of 16S metagenomics data.
-More specifically it performs assignments to the taxonomy tree based on mapping reads from samples
-to a 16S database.
+
+\begin{frame}
+\frametitle{What is metagenomics?}
+
+Metagenomics is the the study about collecting of genetic material from mixed community of organisms (usually bacteria):
+\begin{itemize}
+  \item Soil samples
+  \item Marine samples
+  \item Clinical samples.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The problem of metagenomics}
+
+
+The typical problem of metagenomics is to obtain information about species composition in the sample:
+\begin{itemize}
+  \item Which species are presented in the sample?
+  \item How many different species are presented in the sample? 
+  \item How many species from the given genus are presented in the sample?
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{16S databases}
+16S rRNA gene is widely used to identify bacteria. There are several publicly available databases:
+
+\begin{itemize}
+  \item NCBI 16S
+  \item Greengenes
+  \item SILVA.
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{What is MG7?}
+
+MG7 is a cloud tool that performs assignment to the taxonomy tree based on mapping of reads from samples
+against 16S database.
 
 \vspace{1em}
 
-Metapasta is a version of MG7 written in Scala programing language.
+
+Metapasta is a version of MG7 written in Scala that designed to process a really big amounts of metagenomics data.
+
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Input}
 \begin{itemize}
-  \item Metagenomic samples with reads in FASTQ format
-  \item 16S database (by default Metapasta uses NCBI 16S with some filtering)
-  \item Taxonomy database (we are NCBI taxonomy database that integrated to Bio4j).
+  \item Sequenced metagenomics samples -- reads in FASTQ format
+  \item Taxonomy database (we are using NCBI taxonomy database that is integrated to Bio4j)
+  \item 16S database (by default Metapasta uses NCBI 16S with some filtering).
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Results}
-As results metapasta produce
+\frametitle{Output}
+As result Metapasta produces
 \begin{itemize}
-  \item For every tax id and sample: 
+  \item For every taxonomy id and sample: 
   \begin{itemize}
   	\item number of reads from the sample that were assigned to this tax id
   	\item number of reads from the sample that were assigned to all successors of this tax id
@@ -170,13 +213,6 @@ As results metapasta produce
 \end{frame}
 
 
-
-
-\begin{frame}
-\frametitle{Results. Tables}
-\includegraphics[width=\textwidth]{table.pdf}
-\end{frame}
-
 \begin{frame}
 \frametitle{Results. Trees}
 \includegraphics[width=0.9\textwidth]{tree.pdf}
@@ -184,11 +220,18 @@ As results metapasta produce
 
 
 \begin{frame}
-\frametitle{Pipeline}
+\frametitle{Results. Tables}
+\includegraphics[width=\textwidth]{table.pdf}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Metapasta pipeline}
 \includegraphics[width=\textwidth]{general.pdf}
 
 \begin{itemize}
-  \item FLASh merging paired-end reads into big reads
+  \item (optional) FLASh merging paired-end reads into bigger reads
   \item Mapping reads against the 16S database (with BLAST or LAST)
   \item Assignment to the taxonomy tree using Bio4j.
 \end{itemize}
@@ -202,13 +245,13 @@ For example even on fast computers with SSD and big size of RAM mapping of one r
 
 $$ 1 000 000 \times 0.2 s \approx 56 h $$
 
-The mapping time can be improved by using more efficient mapping tool (by default Metapasta uses LAST that in 100 times faster than BLAST in this case).
+The mapping time can be improved by using a more efficient mapping tool (by default Metapasta uses LAST that in 100 times faster than BLAST in this case).
 \end{frame}
 
 \begin{frame}
 \frametitle{Cloud solution}
 
-Metapasta uses AWS (Amazon Web Services) for performing all computations (EC2 instances):
+Metapasta uses AWS (Amazon Web Services) to perform all computations (EC2 instances):
 
 \includegraphics[width=\textwidth]{pipeline_dist.pdf}
 \end{frame}
@@ -219,9 +262,9 @@ Metapasta uses AWS (Amazon Web Services) for performing all computations (EC2 in
 \frametitle{Cloud solution. Data management}
 Besides computations Metapasta uses AWS for all data management:
 \begin{itemize}
-  \item input data -- samples are stored in S3
-  \item output assignment tables and trees in PDF
-  \item Metapasta can upload all reads (with assignment) to DynamoDB table.
+  \item Reads from samples (S3)
+  \item Taxonomy assignment tables and trees in PDF (S3)
+  \item Metapasta can upload all reads (with assignments) to DynamoDB table.
 \end{itemize}
 \end{frame}
 
@@ -233,9 +276,19 @@ Besides computations Metapasta uses AWS for all data management:
 \begin{itemize}
   \item Scala library for building distributed using AWS
   \item Easy to use (only AWS account is needed)
-  \item Designed to provide maximal level of scalability and availability 
-  (in case of Metapasta it means that it can process {\bf with a good performance} as many samples as needed, and never will lose any of reads).
+  \item Scalable and robust.
+  % \item Designed to provide maximal level of scalability and availability 
+  % (in case of Metapasta it means that it can process {\bf with a good performance} as many data as needed, and never will lose any of reads).
 \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Nispero. Architecture}
+\hspace{0.05\textwidth}
+\includegraphics[width=0.9\textwidth]{architecture.pdf}
+\hspace{0.05\textwidth}
+
 \end{frame}
 
 % \begin{frame}
@@ -249,10 +302,14 @@ Besides computations Metapasta uses AWS for all data management:
 
 \begin{frame}
 \frametitle{Monoids}
+
+We are using idempotent commutative monoids to describe distributed	systems in Nispero.
+
+
 $$ Reads \otimes Reads \xrightarrow{merge} Reads \xrightarrow{BLAST} AssignTable \otimes Reads $$
 
 \begin{itemize}
-  \item They are powerful enough to build complex system
+  \item They are powerful enough to build complex systems
   \item It is easy to work with them abstractly (for example to create graphical workflow editor that produces distributed systems).
 \end{itemize}
 
@@ -274,23 +331,31 @@ $$ Reads \otimes Reads \xrightarrow{merge} Reads \xrightarrow{BLAST} AssignTable
 
 
 
-
-
-
-
 \begin{frame}
-\frametitle{INTERCROSSING}
-This project is funded in part by the ITN FP7 project INTERCROSSING (Grant 289974).
-
-\begin{columns}[T]
-		\begin{column}{.5\textwidth}
-			\hspace{.25\textwidth}\includegraphics[width=.5\textwidth]{intercrossing.png}
-		\end{column}
-		\begin{column}{.5\textwidth}
-			\hspace{.25\textwidth}\includegraphics[width=.5\textwidth]{mc.jpg}
-		\end{column}
-	\end{columns}
+\frametitle{Nispero}
+\hspace{0.2\textwidth}
+\includegraphics[width=0.6\textwidth]{nispero.jpg}
+\hspace{0.2\textwidth}
+\\
+Do not lose opportunity to try this amazing Spanish fruit!
 \end{frame}
+
+
+
+
+% \begin{frame}
+% \frametitle{INTERCROSSING}
+% This project is funded in part by the ITN FP7 project INTERCROSSING (Grant 289974).
+
+% \begin{columns}[T]
+% 		\begin{column}{.5\textwidth}
+% 			\hspace{.25\textwidth}\includegraphics[width=.5\textwidth]{intercrossing.png}
+% 		\end{column}
+% 		\begin{column}{.5\textwidth}
+% 			\hspace{.25\textwidth}\includegraphics[width=.5\textwidth]{mc.jpg}
+% 		\end{column}
+% 	\end{columns}
+% \end{frame}
 
 
 \begin{frame}
