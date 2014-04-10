@@ -1,48 +1,17 @@
-- Submission number **182**
+## Bio4j: bigger, faster, leaner
 
-The tracks to which we submitted it are
+### Submission number **182**
 
-- **SS4**: _High Performance Computing in Bioinformatics_
-- **SS8**: _Integration of data, methods and tools in biosciences_
-- **SS19**: _Deep analysis of deep-sequencing data: for the discovery of genes, transcription factors, proteins and biomarkers_
+#### _Pablo Pareja-Tobes, Alexey Alekhin, Evdokim Kovach, Marina Manrique, Eduardo Pareja, Raquel Tobes and Eduardo Pareja-Tobes_
 
-### Reviewer 1
+Bio4j (http://bio4j.com) is a high-performance cloud-enabled graph-based bioinformatics data platform. It is one of the first and most important graph databases for biological data, specially designed to cope with and manage the huge amount of data brought by NGS technologies: it integrates most data available in UniProt KB (SwissProt + Trembl), Gene Ontology (GO), UniRef (50, 90, 100), RefSeq, NCBI taxonomy, and Expasy Enzyme DBs. Data is organized in a way semantically equivalent to what it represents by taking advantage of the graph structure; in this paradigm it is easy to have many different types of relationships and nodes thus making it perfect for highly interconnected complex data (as it is the case of biological data). From a performance point of view, relational databases with their tabular data structure are not able to respond to some complex queries that are possible to resolve using the graph paradigm; graph databases give you fast local access to all the elements related with each entity, through the edges that connect them with others. In this way, queries which would even be impossible to perform with a standard Relational DB, just take a couple of seconds with Bio4j.
 
-- Overall evaluation: 1: (weak accept)
-- Reviewer's confidence:  4: (high)
-- Recommended for journal publication:  3: (fair)
+This year has seen important updates and new developments on Bio4j; it now includes 1,216,993,547 relationships and 190,625,351 nodes, close to triplicating the figures from one year ago. We have introduced a new level of abstraction for the domain model, by decoupling the inner database implementation from the relationships among entities themselves. Interfaces has been developed for each node and relationship present in the database, including methods to access both the properties of the entity it represents and utility methods that allow to easily navigate to the entities that will be linked to it. 
 
-> The short abstract, entitled: “Bio4j: bigger, faster, leaner” present a high-performance cloud-enabled graph-based bioinformatics data platform, which integrates most data available in UniProt KB (SwissProt + Trembl), Gene Ontology (GO), UniRef (50, 90, 100), RefSeq, NCBI taxonomy, and Expasy Enzyme DBs. Therefore, this is a very useful tool for the scientific community in the field of bioinformatics, because Bio4j is open source, available under the AGPLv3 license.
-> 
-> The main question is: what are the main advantages and disadvantages with other wellknown bioinformatics data platform?
-> 
-> What about the graphical interface for the user?
-> 
-> This short abstract present an interesting bioinformatics data platform, that as pointed out, is growing year by year, however, and despite of the interest that the contribution may have, the abstract is extremely short and therefore is very difficult to assess the impact and novelty of the approach. 
-> 
-> Because the bioinformatics data platform presented is of great interest and very relevant, I recommend authors to extend this short abstract to a full paper for the conference. It is possible to conditional accept the paper, but authors should submit a detailed final version in .pdf format using the template of the conference.
+Implementing that set of interfaces we have developed another layer for the domain model using Blueprints, the de-facto standard for graph data modeling, thus making the domain model independent from the choice of database technology. Building on that, we now offer specifically tuned data binary distributions for TitanDB, yielding a dramatic increase in performance due to vertex-local edge-typed indexes. 
 
-### Reviewer 2
+The introduction of a module system based in Statika makes now possible to deploy only selected components of the integrated data sets, with Amazon Web Services deployments on hardware specifically configured for them. 
 
-- Overall evaluation: 0: (borderline paper)
-- Reviewer's confidence:  4: (high)
-- Recommended for journal publication:  2: (poor)
+Bio4j is open source, available under the AGPLv3 license. 
 
-> In this abstract, authors presents their Bio4j platform, which provides an integrative and quick way to access biological data from several well-known as Uniprot, GO, RefSeq, etc. Specifically, authors show the main updates and implementation in this platform.
-> 
-> I think it is a great opportunity to make Bio4j known for attendants in this conference, even though this abstract is only focused on updates and improvements of this platform. However, in order to make this contribution more interesting for attendants, I think it is necessary that authors extend it to a full paper.
-> 
-> I encourage author to describe in detail in this full paper the novel modules they have incorporated to Bio4j (i.e. the Statika-based one or the additional layer for the domain model). It could also interesting to make a comparative study (I find essential, for example, to know how Bio4j improves other databases in terms of consuming time).
-> 
-> In summary, I find this platform of high interest for this conference but more information should be provided in order to be definitively accepted.
-
-----
-
-Summarizing, I think we should address (quoting from the reviews)
-
-1. what are the main advantages and disadvantages with other wellknown bioinformatics data platform?
-2. What about the graphical interface for the user?
-3. the abstract is extremely short, impact and novelty
-4. comparative study, time
-
-the modified version is in the file [bio4j.md](bio4j.md), and the text for the email is in [reply.md](reply.md). 
+This project is funded in part by the ITN FP7 project INTERCROSSING (Grant 289974).
